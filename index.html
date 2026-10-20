@@ -3,538 +3,553 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Flyby — Business Travel, Built for You.</title>
+<title>Flyby · Business Travel, Built for You.</title>
+<meta name="description" content="Flyby plans, books, and manages your corporate trips, and handles expenses automatically."/>
+<meta name="theme-color" content="#FFFFFF"/>
+<link rel="icon" type="image/png" href="flybylogo.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400..500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet"/>
 <style>
-/* ═══════════════════════ RESET & BASE ═══════════════════════ */
+/* ═══════════════════════ TOKENS ═══════════════════════ */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --white:#FFFFFF;
-  --gray-bg:#F7F9FC;
-  --blue:#4A90D9;
-  --blue-deep:#1A3A5C;
-  --blue-sky:#E8F4FD;
-  --text:#0A1628;
-  --text-muted:#4A6080;
-  --text-light:#8AA0B8;
-  --border:#E2EAF2;
-  --shadow:0 2px 24px rgba(10,22,40,0.08);
-  --shadow-lg:0 8px 48px rgba(10,22,40,0.12);
-  --shadow-xl:0 24px 80px rgba(10,22,40,0.16);
-  --r:14px;--r-sm:10px;--r-lg:20px;
+  --bg:#FFFFFF;
+  --bg-soft:#F6F8FB;
+  --ink:#0A1222;
+  --ink-2:#28354B;
+  --ink-3:#56637A;
+  --ink-4:#8A95A8;
+  --line:#E3E8F0;
+  --line-soft:#EDF1F6;
+  --blue:#3570E3;
+  --blue-600:#2A5FCC;
+  --blue-700:#1E4AA3;
+  --blue-50:#EFF4FF;
+  --blue-100:#DCE7FD;
+  --peri:#7C9BE3;
+  --sky:#A9C9EA;
+  --green:#0E7A57;--green-bg:#E5F6EE;
+  --amber:#9A5A00;--amber-bg:#FFF2D9;
+  --red:#C02D2D;--red-bg:#FDEBEB;
+  --night:#060B17;
+
+  /* aliases used by inline styles in the mockups */
+  --text:var(--ink);--text-muted:var(--ink-3);--text-light:var(--ink-4);
+  --border:var(--line);--gray-bg:var(--bg-soft);--blue-sky:var(--blue-50);--blue-deep:var(--blue-700);
+
+  --font-sans:'Geist',ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --font-serif:'Instrument Serif',ui-serif,Georgia,serif;
+  --font-mono:'Geist Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+
+  --shadow-xs:0 1px 2px rgba(10,18,34,.05);
+  --shadow-sm:0 1px 2px rgba(10,18,34,.04),0 2px 8px -2px rgba(10,18,34,.07);
+  --shadow-md:0 1px 2px rgba(10,18,34,.04),0 10px 28px -8px rgba(10,18,34,.12);
+  --shadow-lg:0 2px 4px rgba(10,18,34,.03),0 28px 56px -16px rgba(10,18,34,.18);
+  --shadow-xl:0 2px 6px rgba(10,18,34,.04),0 48px 96px -24px rgba(16,38,90,.32);
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --sy:clamp(5.5rem,10vw,8.5rem);
 }
-html{scroll-behavior:smooth}
-body{font-family:'DM Sans',sans-serif;background:#fff;color:var(--text);line-height:1.6;overflow-x:hidden}
+html{scroll-behavior:smooth;scroll-padding-top:96px}
+body{font-family:var(--font-sans);background:var(--bg);color:var(--ink);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
 img{max-width:100%;display:block}
 a{text-decoration:none;color:inherit}
 ul{list-style:none}
-::-webkit-scrollbar{width:5px}
-::-webkit-scrollbar-track{background:#F7F9FC}
-::-webkit-scrollbar-thumb{background:#4A90D9;border-radius:3px}
+button{font:inherit}
+::selection{background:var(--blue-100);color:var(--ink)}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:6px}
+::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:#D3DAE5;border-radius:10px;border:3px solid var(--bg)}
+::-webkit-scrollbar-thumb:hover{background:#B9C3D2}
 
 /* ═══════════════════════ TYPOGRAPHY ═══════════════════════ */
-.h-hero{font-size:clamp(3rem,6.5vw,5rem);font-weight:800;line-height:1.05;letter-spacing:-0.03em;color:var(--text)}
-.h-section{font-size:clamp(2rem,4vw,3rem);font-weight:800;line-height:1.08;letter-spacing:-0.025em;color:var(--text)}
-.h-card{font-size:1.15rem;font-weight:700;color:var(--text)}
-.body-lg{font-size:1.1rem;color:var(--text-muted);line-height:1.7}
-.body-md{font-size:.97rem;color:var(--text-muted);line-height:1.65}
-.label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em}
-.blue-accent{color:var(--blue)}
+.h-hero{font-size:clamp(3rem,7.6vw,6.25rem);font-weight:600;line-height:.95;letter-spacing:-.055em;color:var(--ink)}
+.h-section{font-size:clamp(2.25rem,4.8vw,3.75rem);font-weight:600;line-height:1;letter-spacing:-.045em;color:var(--ink)}
+.h-card{font-size:1.25rem;font-weight:600;letter-spacing:-.025em;line-height:1.25;color:var(--ink)}
+.serif{font-family:var(--font-serif);font-style:italic;font-weight:400;letter-spacing:-.015em;font-size:1.07em;line-height:.9}
+.accent{background:linear-gradient(95deg,#2A5FCC 0%,#4F80EA 45%,#86A6E8 100%);-webkit-background-clip:text;background-clip:text;color:transparent;padding:0 .08em .08em 0}
+.accent-light{background:linear-gradient(95deg,#9DBBF5 0%,#C6DAF7 60%,#E7EFFC 100%);-webkit-background-clip:text;background-clip:text;color:transparent;padding:0 .08em .08em 0}
+.lead{font-size:1.125rem;line-height:1.65;color:var(--ink-3);max-width:560px;margin:1.5rem auto 0;letter-spacing:-.005em}
+.eyebrow{display:inline-flex;align-items:center;gap:.6rem;font-family:var(--font-mono);font-size:.75rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:1.5rem}
+.eyebrow::before{content:'';width:6px;height:6px;border-radius:2px;background:currentColor;box-shadow:0 0 0 4px var(--blue-100)}
+.eyebrow-dark{color:#9DBBF5}
+.eyebrow-dark::before{box-shadow:0 0 0 4px rgba(157,187,245,.15)}
 
 /* ═══════════════════════ LAYOUT ═══════════════════════ */
-.container{max-width:1160px;margin:0 auto;padding:0 2rem}
+.container{max-width:1180px;margin:0 auto;padding:0 1.5rem}
 section{position:relative}
+.sec-head{max-width:720px;margin:0 auto 4.5rem;text-align:center}
 
 /* ═══════════════════════ BUTTONS ═══════════════════════ */
-.btn{display:inline-flex;align-items:center;gap:.45rem;padding:.75rem 1.75rem;border-radius:100px;font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:600;cursor:pointer;transition:all .22s;border:none;white-space:nowrap}
-.btn-blue{background:var(--blue);color:#fff;box-shadow:0 4px 20px rgba(74,144,217,0.35)}
-.btn-blue:hover{background:#3a80c9;box-shadow:0 6px 28px rgba(74,144,217,0.5);transform:translateY(-1px)}
-.btn-outline{background:transparent;color:var(--blue);border:2px solid var(--blue)}
-.btn-outline:hover{background:var(--blue-sky)}
-.btn-lg{padding:.95rem 2.25rem;font-size:1.05rem}
-.btn-white{background:#fff;color:var(--blue-deep);font-weight:700}
-.btn-white:hover{background:var(--blue-sky)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;height:44px;padding:0 1.25rem;border-radius:999px;font-family:var(--font-sans);font-size:.94rem;font-weight:500;letter-spacing:-.01em;line-height:1;cursor:pointer;border:0;white-space:nowrap;transition:transform .25s var(--ease),box-shadow .25s var(--ease),background-color .2s,color .2s;-webkit-tap-highlight-color:transparent}
+.btn svg{width:16px;height:16px;flex-shrink:0;pointer-events:none;transition:transform .25s var(--ease)}
+.btn:hover svg{transform:translateX(2px)}
+.btn-blue{color:#fff;background:linear-gradient(180deg,#4A82EE 0%,#2E64D6 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.22),inset 0 -1px 0 rgba(0,0,0,.12),0 1px 2px rgba(20,50,120,.28),0 8px 22px -8px rgba(47,102,216,.65)}
+.btn-blue:hover{transform:translateY(-1px);box-shadow:inset 0 1px 0 rgba(255,255,255,.26),inset 0 -1px 0 rgba(0,0,0,.12),0 2px 4px rgba(20,50,120,.25),0 14px 30px -10px rgba(47,102,216,.75)}
+.btn-blue:active{transform:translateY(0)}
+.btn-ink{color:#fff;background:var(--ink);box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 1px 2px rgba(10,18,34,.24),0 6px 16px -8px rgba(10,18,34,.5)}
+.btn-ink:hover{background:#1B263B;transform:translateY(-1px)}
+.btn-outline{color:var(--ink);background:#fff;box-shadow:inset 0 0 0 1px var(--line),var(--shadow-xs)}
+.btn-outline:hover{box-shadow:inset 0 0 0 1px #C9D2DF,var(--shadow-sm);transform:translateY(-1px)}
+.btn-lg{height:52px;padding:0 1.6rem;font-size:1rem}
+.btn-sm{height:38px;padding:0 1rem;font-size:.88rem}
 
 /* ═══════════════════════ NAVBAR ═══════════════════════ */
-.nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:#fff;border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s;padding:0 2rem}
-.nav.scrolled{border-color:var(--border);box-shadow:0 2px 24px rgba(10,22,40,0.07)}
-.nav-inner{max-width:1160px;margin:0 auto;height:68px;display:flex;align-items:center;gap:2rem}
-.nav-logo{display:flex;align-items:center;gap:.6rem;font-size:1.3rem;font-weight:800;letter-spacing:-.03em;color:var(--text);flex-shrink:0}
-.nav-logo svg{flex-shrink:0}
-.nav-links{display:flex;gap:.25rem;margin:0 auto}
-.nav-links a{padding:.45rem .9rem;border-radius:8px;font-size:.92rem;font-weight:500;color:var(--text-muted);transition:all .18s}
-.nav-links a:hover{color:var(--text);background:var(--gray-bg)}
-.nav-right{display:flex;align-items:center;gap:.75rem;flex-shrink:0}
-.nav-login{font-size:.92rem;font-weight:600;color:var(--text-muted);padding:.45rem .75rem;transition:color .18s}
-.nav-login:hover{color:var(--text)}
-.nav-hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
-.nav-hamburger span{display:block;width:22px;height:2px;background:var(--text-muted);border-radius:2px;transition:all .3s}
-.nav-hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:12px 16px}
+.nav-inner{max-width:1180px;margin:0 auto;height:58px;display:flex;align-items:center;gap:2rem;padding:0 9px 0 18px;border-radius:18px;border:1px solid transparent;background:transparent;transition:max-width .5s var(--ease),background-color .3s,border-color .3s,box-shadow .3s}
+.nav.scrolled .nav-inner{max-width:1000px;background:rgba(255,255,255,.74);border-color:rgba(10,18,34,.07);box-shadow:0 1px 2px rgba(10,18,34,.04),0 16px 40px -16px rgba(10,18,34,.18);-webkit-backdrop-filter:saturate(180%) blur(18px);backdrop-filter:saturate(180%) blur(18px)}
+.nav-logo{display:flex;align-items:center;gap:.55rem;font-size:1.12rem;font-weight:600;letter-spacing:-.035em;color:var(--ink);flex-shrink:0}
+.nav-logo img{width:28px;height:28px;object-fit:contain;mix-blend-mode:multiply}
+.nav-logo-ai{color:var(--ink-4);font-weight:500}
+.nav-links{display:flex;gap:.15rem;margin:0 auto}
+.nav-links a{display:block;padding:.5rem .85rem;border-radius:9px;font-size:.9rem;font-weight:450;color:var(--ink-3);transition:color .18s,background-color .18s}
+.nav-links a:hover{color:var(--ink);background:rgba(10,18,34,.045)}
+.nav-right{display:flex;align-items:center;gap:.5rem;flex-shrink:0}
+.nav-hamburger{display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:40px;height:40px;margin-left:auto;border-radius:10px;background:transparent;border:none;cursor:pointer;transition:background-color .2s}
+.nav-hamburger:hover{background:rgba(10,18,34,.05)}
+.nav-hamburger span{display:block;width:18px;height:1.5px;background:var(--ink);border-radius:2px;transition:transform .3s var(--ease),opacity .2s}
+.nav-hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
 .nav-hamburger.open span:nth-child(2){opacity:0}
-.nav-hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-.mobile-nav{display:none;position:fixed;top:68px;left:0;right:0;z-index:999;background:#fff;border-bottom:1px solid var(--border);padding:1.5rem 2rem;flex-direction:column;gap:1rem;transform:translateY(-110%);transition:transform .3s ease}
-.mobile-nav.open{transform:translateY(0)}
-.mobile-nav a{font-size:1.1rem;font-weight:500;color:var(--text-muted)}
-.mobile-nav .btn{width:100%;justify-content:center}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+.mobile-nav{display:none;position:fixed;top:80px;left:16px;right:16px;z-index:999;flex-direction:column;gap:2px;padding:10px;border-radius:18px;background:rgba(255,255,255,.96);border:1px solid rgba(10,18,34,.07);box-shadow:var(--shadow-lg);-webkit-backdrop-filter:saturate(180%) blur(18px);backdrop-filter:saturate(180%) blur(18px);opacity:0;transform:translateY(-8px) scale(.98);transform-origin:top center;pointer-events:none;transition:opacity .25s var(--ease),transform .3s var(--ease)}
+.mobile-nav.open{opacity:1;transform:none;pointer-events:auto}
+.mobile-nav a{padding:.8rem 1rem;border-radius:12px;font-size:1rem;font-weight:500;color:var(--ink-2);transition:background-color .2s}
+.mobile-nav a:hover{background:var(--bg-soft)}
+.mobile-nav .btn{width:100%;margin-top:6px;color:#fff}
+.mobile-nav .btn:hover{background:#1B263B}
 
 /* ═══════════════════════ HERO ═══════════════════════ */
-.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:9rem 2rem 5rem;overflow:hidden;position:relative}
-.hero-gradient{position:absolute;inset:0;background:linear-gradient(180deg,#fff 0%,#E8F4FD 45%,#d0e8f8 65%,#E8F4FD 82%,#fff 100%);z-index:0}
-.hero-gradient-anim{position:absolute;inset:0;z-index:0;opacity:.6}
-.hero-content{position:relative;z-index:2;max-width:820px}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:.5rem;background:#fff;border:1px solid var(--border);border-radius:100px;padding:.35rem 1rem .35rem .6rem;font-size:.8rem;font-weight:600;color:var(--text-muted);margin-bottom:2rem;box-shadow:var(--shadow)}
-.hero-eyebrow-dot{width:20px;height:20px;border-radius:50%;background:var(--blue-sky);display:flex;align-items:center;justify-content:center}
-.hero-eyebrow-dot svg{width:10px;height:10px}
-.hero h1{margin-bottom:1.5rem}
-.hero-sub{font-size:1.15rem;color:var(--text-muted);max-width:540px;margin:0 auto 2.75rem;line-height:1.7}
-.hero-ctas{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:4.5rem}
-.hero-mockup{position:relative;z-index:2;width:100%;max-width:920px;margin:0 auto}
-.hero-mockup-card{background:#fff;border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:var(--shadow-xl);overflow:hidden;transform:perspective(1200px) rotateX(6deg);transition:transform .4s ease}
-.hero-mockup-card:hover{transform:perspective(1200px) rotateX(2deg)}
-.mockup-topbar{background:#F7F9FC;border-bottom:1px solid var(--border);padding:.7rem 1.25rem;display:flex;align-items:center;gap:.5rem}
-.mockup-dot{width:11px;height:11px;border-radius:50%}
-.mockup-dot.r{background:#FF5F57}.mockup-dot.y{background:#FEBC2E}.mockup-dot.g{background:#28C840}
-.mockup-url{margin:0 auto;font-size:.72rem;color:var(--text-light);background:#fff;border:1px solid var(--border);border-radius:6px;padding:.25rem .9rem;font-family:monospace}
-.mockup-body-layout{display:flex;min-height:320px}
-.mockup-aside{width:148px;flex-shrink:0;border-right:1px solid var(--border);padding:1rem .75rem;display:flex;flex-direction:column;gap:.2rem;background:#fff}
-.m-nav-item{display:flex;align-items:center;gap:.55rem;padding:.45rem .65rem;border-radius:8px;font-size:.77rem;font-weight:500;color:var(--text-muted);cursor:pointer;transition:all .18s}
-.m-nav-item.active{background:var(--blue-sky);color:var(--blue);font-weight:700}
-.m-nav-item:hover:not(.active){background:var(--gray-bg)}
-.m-nav-item svg{width:15px;height:15px;flex-shrink:0}
-.mockup-content{flex:1;padding:1.25rem;display:flex;flex-direction:column;gap:1rem;background:#fff}
-.mockup-search{background:var(--gray-bg);border:1px solid var(--border);border-radius:8px;padding:.55rem 1rem;font-size:.8rem;color:var(--text-light);display:flex;align-items:center;gap:.5rem}
-.mockup-cards-row{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem}
-.m-stat-card{background:var(--gray-bg);border:1px solid var(--border);border-radius:var(--r-sm);padding:.85rem 1rem}
-.m-stat-label{font-size:.65rem;color:var(--text-light);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.35rem}
-.m-stat-val{font-size:1.5rem;font-weight:800;color:var(--text)}
-.m-stat-sub{font-size:.65rem;color:var(--text-light);margin-top:.2rem}
-.m-stat-badge{display:inline-block;padding:.1rem .45rem;border-radius:100px;font-size:.62rem;font-weight:700}
-.badge-green{background:rgba(34,197,94,.1);color:#16a34a}
-.badge-blue{background:var(--blue-sky);color:var(--blue)}
-.mockup-trips{background:var(--gray-bg);border:1px solid var(--border);border-radius:var(--r-sm);padding:.85rem 1rem}
-.trips-head{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text-light);margin-bottom:.6rem;display:flex;justify-content:space-between}
-.trip-row{display:flex;align-items:center;gap:.6rem;padding:.35rem 0;border-bottom:1px solid var(--border)}
+.hero{padding:10.5rem 1.5rem 6rem;text-align:center;overflow:hidden;isolation:isolate}
+.hero-gradient{position:absolute;inset:0;z-index:-2;background:radial-gradient(60% 46% at 50% 0%,rgba(53,112,227,.16) 0%,rgba(53,112,227,0) 72%),radial-gradient(36% 30% at 88% 26%,rgba(169,201,234,.38) 0%,transparent 70%),radial-gradient(34% 30% at 10% 34%,rgba(124,155,227,.2) 0%,transparent 70%),linear-gradient(180deg,#F5F8FF 0%,#FFFFFF 58%)}
+.hero-gradient::after{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(10,18,34,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(10,18,34,.05) 1px,transparent 1px);background-size:72px 72px;background-position:center -1px;-webkit-mask-image:radial-gradient(64% 48% at 50% 16%,#000 0%,transparent 80%);mask-image:radial-gradient(64% 48% at 50% 16%,#000 0%,transparent 80%)}
+.hero-gradient-anim{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+.hero-content{position:relative;z-index:2;max-width:880px;margin:0 auto}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:.7rem;padding:5px 14px 5px 5px;margin-bottom:2rem;border-radius:999px;background:rgba(255,255,255,.8);border:1px solid var(--line);box-shadow:var(--shadow-sm);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);font-size:.84rem;font-weight:450;color:var(--ink-2)}
+.hero-eyebrow-tag{display:inline-flex;align-items:center;gap:.45rem;padding:4px 10px;border-radius:999px;background:var(--ink);color:#fff;font-size:.75rem;font-weight:500;letter-spacing:-.005em}
+.hero-eyebrow svg{width:13px;height:13px;color:var(--ink-4)}
+.pulse-dot{position:relative;width:6px;height:6px;border-radius:50%;background:#4ADE9B;flex-shrink:0}
+.pulse-dot::after{content:'';position:absolute;inset:0;border-radius:50%;background:inherit;animation:ping 2.2s var(--ease) infinite}
+@keyframes ping{0%{transform:scale(1);opacity:.7}80%,100%{transform:scale(3);opacity:0}}
+.hero h1{margin-bottom:1.75rem}
+.hero-sub{font-size:clamp(1.05rem,1.6vw,1.25rem);color:var(--ink-3);max-width:560px;margin:0 auto 2.5rem;line-height:1.6;letter-spacing:-.01em}
+.hero-ctas{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap}
+
+/* hero product frame */
+.hero-mockup{position:relative;z-index:2;width:100%;max-width:1060px;margin:5.5rem auto 0}
+.hero-mockup::before{content:'';position:absolute;inset:6% 4% -2%;z-index:-1;background:radial-gradient(50% 50% at 50% 50%,rgba(53,112,227,.32) 0%,rgba(124,155,227,.12) 50%,transparent 75%);filter:blur(48px);pointer-events:none}
+.carousel-outer{position:relative;width:100%}
+.hero-mockup-card{position:relative;padding:7px;border-radius:22px;background:linear-gradient(180deg,rgba(255,255,255,.85),rgba(255,255,255,.5));border:1px solid rgba(10,18,34,.08);box-shadow:var(--shadow-xl),inset 0 1px 0 rgba(255,255,255,.9);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);transform:perspective(1800px) rotateX(7deg) scale(.985);transform-origin:50% 0;transition:transform .9s var(--ease)}
+.hero-mockup-card:hover{transform:perspective(1800px) rotateX(0deg) scale(1)}
+.mockup-window{border-radius:16px;overflow:hidden;background:#fff;border:1px solid var(--line);text-align:left}
+.mockup-topbar{position:relative;height:42px;display:flex;align-items:center;gap:7px;padding:0 16px;background:#FAFBFD;border-bottom:1px solid var(--line)}
+.mockup-dot{width:11px;height:11px;border-radius:50%;background:#E2E6ED;box-shadow:inset 0 0 0 .5px rgba(10,18,34,.08)}
+.mockup-url{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;gap:6px;min-width:240px;padding:5px 14px;border-radius:8px;background:#fff;border:1px solid var(--line);font-family:var(--font-mono);font-size:.7rem;color:var(--ink-3);white-space:nowrap}
+.mockup-url svg{width:11px;height:11px;color:var(--ink-4)}
+
+/* app chrome inside the mockup */
+.c-aside{width:184px;flex-shrink:0;display:flex;flex-direction:column;gap:2px;padding:14px 10px;background:#FBFCFD;border-right:1px solid var(--line)}
+.c-aside::before{content:'Acme Inc.';display:flex;align-items:center;height:30px;padding-left:34px;margin-bottom:10px;border-radius:8px;font-size:.78rem;font-weight:600;letter-spacing:-.01em;color:var(--ink);background:url(flybylogo.png) 8px center/18px 18px no-repeat}
+.m-nav-item{display:flex;align-items:center;gap:.6rem;padding:.42rem .6rem;border-radius:8px;font-size:.78rem;font-weight:450;color:var(--ink-3);cursor:pointer;transition:background-color .18s,color .18s}
+.m-nav-item svg{width:15px;height:15px;flex-shrink:0;color:var(--ink-4);transition:color .18s}
+.m-nav-item.active{background:#fff;color:var(--ink);font-weight:550;box-shadow:inset 0 0 0 1px var(--line),var(--shadow-xs)}
+.m-nav-item.active svg{color:var(--blue)}
+.m-nav-item:hover:not(.active){background:rgba(10,18,34,.04);color:var(--ink-2)}
+.m-nav-bottom{margin-top:auto}
+.c-main{flex:1;min-width:0;padding:18px 20px;display:flex;flex-direction:column;gap:14px;background:#fff}
+.mockup-search{display:flex;align-items:center;gap:.55rem;height:34px;padding:0 .5rem 0 .8rem;border-radius:9px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-xs);font-size:.78rem;color:var(--ink-4)}
+.mockup-search svg{flex-shrink:0}
+.mockup-search kbd{margin-left:auto;font-family:var(--font-mono);font-size:.64rem;color:var(--ink-4);background:var(--bg-soft);border:1px solid var(--line);border-radius:5px;padding:2px 6px}
+.mockup-cards-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.m-stat-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.m-stat-label{font-size:.68rem;font-weight:500;color:var(--ink-3);margin-bottom:6px}
+.m-stat-val{font-size:1.45rem;font-weight:600;letter-spacing:-.035em;line-height:1.1;color:var(--ink);font-variant-numeric:tabular-nums}
+.m-stat-sub{display:flex;align-items:center;gap:6px;font-size:.66rem;color:var(--ink-4);margin-top:8px}
+.m-stat-badge{display:inline-flex;align-items:center;padding:2px 7px;border-radius:999px;font-size:.64rem;font-weight:550}
+.badge-green{background:var(--green-bg);color:var(--green)}
+.badge-blue{background:var(--blue-50);color:var(--blue-600)}
+.mockup-trips{background:#fff;border:1px solid var(--line);border-radius:12px;padding:4px 14px 6px}
+.trips-head{display:flex;justify-content:space-between;align-items:center;padding:10px 0 8px;font-size:.72rem;font-weight:600;color:var(--ink);border-bottom:1px solid var(--line-soft)}
+.trips-link{font-size:.68rem;font-weight:500;color:var(--blue)}
+.trip-row{display:flex;align-items:center;gap:.7rem;padding:9px 0;border-bottom:1px solid var(--line-soft)}
 .trip-row:last-child{border-bottom:none}
-.trip-av{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;color:#fff;flex-shrink:0}
+.trip-av,.cs-av,.ts-av,.ltrack-av,.chat-av{display:flex;align-items:center;justify-content:center;flex-shrink:0;border-radius:50%;font-size:.6rem;font-weight:600;color:#fff;letter-spacing:.02em;box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}
+.trip-av{width:28px;height:28px}
 .trip-info{flex:1;min-width:0}
-.trip-name{font-size:.75rem;font-weight:600;color:var(--text)}
-.trip-route{font-size:.67rem;color:var(--text-light)}
-.trip-chip{font-size:.62rem;font-weight:600;padding:.18rem .55rem;border-radius:100px}
-.chip-active{background:var(--blue-sky);color:var(--blue)}
-.chip-done{background:rgba(34,197,94,.1);color:#16a34a}
-.chip-soon{background:rgba(251,191,36,.1);color:#d97706}
+.trip-name{font-size:.76rem;font-weight:550;color:var(--ink)}
+.trip-route{font-size:.68rem;color:var(--ink-4)}
+
+/* shared status chips */
+.trip-chip,.ts-status,.badge-pending,.badge-approved,.badge-disputed{display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:999px;font-size:.64rem;font-weight:550;line-height:1.3;white-space:nowrap}
+.trip-chip::before,.ts-status::before{content:'';width:5px;height:5px;border-radius:50%;background:currentColor}
+.chip-active,.ts-inflight{background:var(--blue-50);color:var(--blue-600)}
+.chip-done,.ts-hotel,.badge-approved{background:var(--green-bg);color:var(--green)}
+.chip-soon,.ts-upcoming,.badge-pending{background:var(--amber-bg);color:var(--amber)}
+.badge-disputed{background:var(--red-bg);color:var(--red)}
+.ts-remote{background:var(--bg-soft);color:var(--ink-3);box-shadow:inset 0 0 0 1px var(--line)}
 
 /* ═══════════════════════ CAROUSEL ═══════════════════════ */
-.carousel-outer{position:relative;width:100%}
 .carousel-container{position:relative;overflow:hidden}
-/* slides stack on top of each other — fixed height keeps all slides the same size */
-.carousel-track{position:relative;height:424px;overflow:hidden}
-.c-slide{
-  position:absolute;inset:0;
-  opacity:0;pointer-events:none;
-  transform:translateY(16px);
-  transition:opacity .55s ease, transform .55s ease;
-  display:flex;
+.carousel-track{position:relative;height:440px;overflow:hidden}
+.c-slide{position:absolute;inset:0;display:flex;opacity:0;pointer-events:none;transform:translateY(14px);transition:opacity .55s var(--ease),transform .55s var(--ease)}
+.c-slide.active{opacity:1;pointer-events:all;transform:translateY(0)}
+.c-slide.leaving{position:absolute;inset:0;opacity:0;transform:translateY(-10px);transition:opacity .35s ease,transform .35s ease}
+.c-arrow{position:absolute;top:50%;z-index:10;width:38px;height:38px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:rgba(255,255,255,.92);border:1px solid var(--line);box-shadow:var(--shadow-md);color:var(--ink-2);cursor:pointer;transform:translateY(-50%);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transition:opacity .25s,background-color .2s,color .2s,border-color .2s,transform .25s var(--ease)}
+.c-arrow:hover{background:var(--ink);border-color:var(--ink);color:#fff;transform:translateY(-50%) scale(1.06)}
+.c-arrow svg{width:16px;height:16px}
+.c-prev{left:14px}.c-next{right:14px}
+@media (hover:hover){
+  .c-arrow{opacity:0}
+  .carousel-container:hover .c-arrow,.c-arrow:focus-visible{opacity:1}
 }
-.c-slide.active{
-  opacity:1;pointer-events:all;transform:translateY(0);
-}
-.c-slide.leaving{
-  opacity:0;transform:translateY(-10px);
-  transition:opacity .35s ease,transform .35s ease;
-  position:absolute;inset:0;
-}
-/* sidebar inside each slide */
-.c-aside{width:148px;flex-shrink:0;border-right:1px solid var(--border);padding:1rem .75rem;display:flex;flex-direction:column;gap:.2rem;background:#fff}
-.c-main{flex:1;padding:1.25rem;display:flex;flex-direction:column;gap:1rem;background:#fff;min-width:0}
-
-/* arrows */
-.c-arrow{
-  position:absolute;top:50%;transform:translateY(-50%);
-  width:44px;height:44px;border-radius:50%;
-  background:#fff;
-  border:2px solid var(--border);
-  box-shadow:0 4px 20px rgba(10,22,40,0.18),0 1px 4px rgba(10,22,40,0.1);
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;z-index:10;transition:all .2s;
-  color:var(--blue-deep);
-}
-.c-arrow:hover{
-  background:var(--blue);border-color:var(--blue);
-  color:#fff;
-  box-shadow:0 6px 28px rgba(74,144,217,0.45);
-  transform:translateY(-50%) scale(1.08);
-}
-.c-arrow svg{width:20px;height:20px;flex-shrink:0;stroke-width:2.8}
-.c-prev{left:12px}.c-next{right:12px}
-
-/* dots */
-.carousel-dots{display:flex;align-items:center;justify-content:center;gap:.5rem;margin-top:1.25rem}
-.c-dot{width:7px;height:7px;border-radius:50%;background:var(--border);cursor:pointer;transition:all .25s;border:none;padding:0}
-.c-dot.active{background:var(--blue);width:20px;border-radius:4px}
-.c-dot:hover:not(.active){background:var(--text-light)}
-
-/* ── slide image frame ── */
-.slide-frame{
-  width:100%;
-  position:relative;
-  background:#F0F4F8;
-  display:flex;align-items:stretch;
-  overflow:hidden;
-}
-.slide-img{
-  width:100%;height:100%;
-  object-fit:cover;display:block;
-  position:relative;z-index:1;
-}
-/* placeholder shown behind image; hidden once image loads */
-.slide-ph{
-  position:absolute;inset:0;z-index:0;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:.6rem;padding:2rem;text-align:center;
-  background:linear-gradient(135deg,#F0F4F8 0%,#E8F0F8 100%);
-}
-.slide-ph-icon{
-  width:56px;height:56px;border-radius:14px;
-  background:#fff;border:1.5px solid var(--border);
-  box-shadow:0 2px 12px rgba(10,22,40,0.08);
-  display:flex;align-items:center;justify-content:center;
-  margin-bottom:.25rem;
-}
-.slide-ph-icon svg{width:26px;height:26px;color:var(--blue)}
-.slide-ph-name{font-size:1rem;font-weight:700;color:var(--text)}
-.slide-ph-desc{font-size:.82rem;color:var(--text-muted);line-height:1.5;max-width:320px}
-.slide-ph-file{
-  margin-top:.25rem;
-  background:#fff;border:1px solid var(--border);border-radius:8px;
-  padding:.4rem .9rem;font-size:.77rem;color:var(--text-muted);
-  display:inline-flex;align-items:center;gap:.4rem;
-}
-.slide-ph-file code{
-  background:var(--blue-sky);color:var(--blue-deep);
-  padding:.1rem .45rem;border-radius:4px;
-  font-size:.75rem;font-family:monospace;font-weight:700;
-}
-/* once image loads successfully, hide placeholder */
-.slide-img.loaded + .slide-ph{display:none}
-
-/* slide-specific helpers */
-.slide-url{display:none} /* updated via JS on topbar */
+.carousel-dots{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:2rem}
+.c-dot{position:relative;width:6px;height:6px;padding:0;border:none;border-radius:999px;background:rgba(10,18,34,.16);cursor:pointer;transition:width .45s var(--ease),background-color .3s}
+.c-dot::before{content:'';position:absolute;inset:-9px -5px}
+.c-dot.active{width:28px;background:var(--ink)}
+.c-dot:hover:not(.active){background:rgba(10,18,34,.35)}
 
 /* chat slide */
-.chat-slide-bubbles{display:flex;flex-direction:column;gap:.55rem;overflow:hidden}
-.cs-row{display:flex;gap:.55rem;align-items:flex-end}
+.chat-slide-bubbles{display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.cs-row{display:flex;gap:.6rem;align-items:flex-end}
 .cs-row.right{flex-direction:row-reverse}
-.cs-av{width:26px;height:26px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.58rem;font-weight:700;color:#fff}
-.cs-bubble{border-radius:14px;padding:.55rem .9rem;font-size:.78rem;line-height:1.45;max-width:78%}
-.cs-bubble.user{background:var(--blue);color:#fff;border-bottom-right-radius:3px}
-.cs-bubble.bot{background:var(--gray-bg);color:var(--text);border-bottom-left-radius:3px}
-.flight-options{display:flex;flex-direction:column;gap:.35rem;margin-top:.2rem}
-.flight-opt{background:#fff;border:1px solid var(--border);border-radius:10px;padding:.55rem .8rem;font-size:.72rem;display:flex;align-items:center;justify-content:space-between;gap:.5rem}
-.flight-opt.recommended{border-color:var(--blue);background:var(--blue-sky)}
-.flight-route{font-weight:700;color:var(--text);font-size:.75rem}
-.flight-meta{color:var(--text-muted);font-size:.68rem}
-.flight-price{font-weight:800;color:var(--blue-deep);font-size:.78rem;white-space:nowrap}
-.hotel-opt{background:var(--blue-sky);border:1px solid rgba(74,144,217,0.2);border-radius:10px;padding:.55rem .8rem;font-size:.72rem;display:flex;align-items:center;gap:.6rem}
-.hotel-icon{width:26px;height:26px;border-radius:7px;background:var(--blue);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.hotel-icon svg{width:13px;height:13px;color:#fff}
+.cs-av{width:26px;height:26px}
+.bot-av{background:#fff;box-shadow:inset 0 0 0 1px var(--line),var(--shadow-xs)}
+.bot-av img{width:15px;height:15px;object-fit:contain}
+.cs-bubble{max-width:78%;padding:.55rem .85rem;border-radius:14px;font-size:.76rem;line-height:1.45}
+.cs-bubble.user{background:linear-gradient(180deg,#4A82EE,#2E64D6);color:#fff;border-bottom-right-radius:4px;box-shadow:0 4px 12px -4px rgba(47,102,216,.45)}
+.cs-bubble.bot{display:inline-block;background:var(--bg-soft);color:var(--ink);border:1px solid var(--line-soft);border-bottom-left-radius:4px}
+.flight-options{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.flight-opt{display:flex;align-items:center;justify-content:space-between;gap:.5rem;padding:.55rem .8rem;border-radius:10px;background:#fff;border:1px solid var(--line);font-size:.72rem}
+.flight-opt.recommended{border-color:rgba(53,112,227,.45);background:var(--blue-50);box-shadow:0 0 0 3px rgba(53,112,227,.08)}
+.flight-route{font-size:.74rem;font-weight:600;color:var(--ink)}
+.flight-meta{font-size:.66rem;color:var(--ink-3)}
+.flight-price{font-size:.78rem;font-weight:600;color:var(--ink);white-space:nowrap;font-variant-numeric:tabular-nums}
+.hotel-opt{display:flex;align-items:center;gap:.6rem;margin-top:6px;padding:.55rem .8rem;border-radius:10px;background:#fff;border:1px solid var(--line);font-size:.72rem}
+.hotel-icon{width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border-radius:7px;background:var(--blue-50)}
+.hotel-icon svg{width:13px;height:13px;color:var(--blue)}
 .hotel-info{flex:1}
-.hotel-name{font-weight:700;color:var(--text);font-size:.73rem}
-.hotel-sub{color:var(--text-muted);font-size:.67rem}
-.hotel-price{font-weight:800;color:var(--blue);font-size:.75rem;white-space:nowrap}
+.hotel-name{font-size:.73rem;font-weight:600;color:var(--ink)}
+.hotel-sub{font-size:.66rem;color:var(--ink-3)}
+.hotel-price{font-size:.75rem;font-weight:600;color:var(--ink);white-space:nowrap}
 
-/* expense slide */
-.ai-insights-box{background:var(--gray-bg);border:1px solid var(--border);border-radius:var(--r-sm);padding:.85rem 1rem}
-.aib-header{display:flex;align-items:center;gap:.5rem;margin-bottom:.6rem}
-.aib-icon{width:24px;height:24px;border-radius:7px;background:var(--blue-sky);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.aib-icon svg{width:12px;height:12px;color:var(--blue)}
-.aib-title{font-size:.75rem;font-weight:700;color:var(--text)}
-.aib-sub{font-size:.67rem;color:var(--text-muted)}
-.aib-rows{display:flex;flex-direction:column;gap:.35rem}
-.aib-row{display:flex;align-items:flex-start;gap:.5rem;font-size:.72rem;color:var(--text-muted)}
-.aib-tag{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:.15rem .45rem;border-radius:4px;white-space:nowrap;flex-shrink:0;margin-top:.1rem}
-.tag-trend{background:rgba(251,191,36,.1);color:#d97706}
-.tag-policy{background:rgba(239,68,68,.1);color:#dc2626}
-.tag-anomaly{background:rgba(74,144,217,.1);color:var(--blue)}
-.exp-table{display:flex;flex-direction:column;gap:.3rem}
-.exp-trow{display:flex;align-items:center;gap:.6rem;padding:.4rem .6rem;background:var(--gray-bg);border-radius:8px;font-size:.72rem}
-.exp-trow-icon{width:24px;height:24px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.exp-trow-icon svg{width:12px;height:12px}
-.exp-trow-name{flex:1;font-weight:600;color:var(--text)}
-.exp-trow-amount{font-weight:700;color:var(--text-muted);font-size:.71rem}
-.badge-pending{background:rgba(251,191,36,.12);color:#d97706;font-size:.6rem;font-weight:700;padding:.15rem .5rem;border-radius:100px}
-.badge-approved{background:rgba(34,197,94,.1);color:#16a34a;font-size:.6rem;font-weight:700;padding:.15rem .5rem;border-radius:100px}
-.badge-disputed{background:rgba(239,68,68,.1);color:#dc2626;font-size:.6rem;font-weight:700;padding:.15rem .5rem;border-radius:100px}
+/* expense insights slide */
+.ai-insights-box{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px}
+.aib-header{display:flex;align-items:center;gap:.6rem;margin-bottom:12px}
+.aib-icon{width:28px;height:28px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border-radius:8px;background:var(--blue-50)}
+.aib-icon svg{width:14px;height:14px;color:var(--blue)}
+.aib-title{font-size:.78rem;font-weight:600;color:var(--ink)}
+.aib-sub{font-size:.66rem;color:var(--ink-4)}
+.aib-rows{display:flex;flex-direction:column;gap:8px}
+.aib-row{display:flex;align-items:flex-start;gap:.6rem;font-size:.72rem;line-height:1.45;color:var(--ink-2)}
+.aib-tag{flex-shrink:0;min-width:58px;margin-top:1px;padding:2px 7px;border-radius:5px;font-family:var(--font-mono);font-size:.58rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;text-align:center}
+.tag-trend{background:var(--amber-bg);color:var(--amber)}
+.tag-policy{background:var(--red-bg);color:var(--red)}
+.tag-anomaly{background:var(--blue-50);color:var(--blue-600)}
+.exp-table{display:flex;flex-direction:column;gap:4px}
+.exp-trow{display:flex;align-items:center;gap:.7rem;padding:.45rem .7rem;border-radius:9px;font-size:.72rem;transition:background-color .2s}
+.exp-trow:not(.exp-thead){background:#fff;border:1px solid var(--line-soft)}
+.exp-trow-icon{width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border-radius:7px}
+.exp-trow-icon svg{width:13px;height:13px}
+.exp-trow-name{flex:1;min-width:0;font-weight:500;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.exp-trow-amount{font-weight:600;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.exp-thead{padding:.3rem .7rem;font-family:var(--font-mono);font-size:.6rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-4)}
+.exp-c-date{flex:0 0 52px;font-size:.68rem;color:var(--ink-4);font-variant-numeric:tabular-nums}
+.exp-thead .exp-c-date{font-size:inherit}
+.exp-c-desc{flex:1}
+.exp-c-amt{flex:0 0 56px;text-align:right}
+.exp-c-status{flex:0 0 72px;text-align:right}
+.exp-total{display:flex;justify-content:flex-end;align-items:baseline;gap:.6rem;padding:10px .7rem 0;border-top:1px solid var(--line)}
+.exp-total span:first-child{font-size:.72rem;color:var(--ink-3)}
+.exp-total span:last-child{font-size:1rem;font-weight:600;letter-spacing:-.02em;color:var(--ink);font-variant-numeric:tabular-nums}
 
 /* team slide */
-.team-slide-rows{display:flex;flex-direction:column;gap:.45rem}
-.ts-row{display:flex;align-items:center;gap:.65rem;background:var(--gray-bg);border-radius:10px;padding:.6rem .85rem}
-.ts-av{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.62rem;font-weight:700;color:#fff;flex-shrink:0}
+.ts-head{display:flex;justify-content:space-between;align-items:center}
+.ts-head-title{font-size:.8rem;font-weight:600;color:var(--ink)}
+.ts-head-title span{color:var(--ink-4);font-weight:450}
+.ts-live{display:inline-flex;align-items:center;gap:6px;font-size:.66rem;font-weight:550;color:var(--green)}
+.team-slide-rows{display:flex;flex-direction:column;gap:6px}
+.ts-row{display:flex;align-items:center;gap:.7rem;padding:.6rem .8rem;border-radius:11px;background:#fff;border:1px solid var(--line-soft)}
+.ts-av{width:30px;height:30px}
 .ts-info{flex:1;min-width:0}
-.ts-name{font-size:.77rem;font-weight:700;color:var(--text)}
-.ts-route{font-size:.67rem;color:var(--text-muted)}
-.ts-status{font-size:.62rem;font-weight:700;padding:.2rem .6rem;border-radius:100px;white-space:nowrap}
-.ts-inflight{background:var(--blue-sky);color:var(--blue)}
-.ts-hotel{background:rgba(34,197,94,.1);color:#16a34a}
-.ts-upcoming{background:rgba(251,191,36,.1);color:#d97706}
-.ts-remote{background:var(--gray-bg);border:1px solid var(--border);color:var(--text-muted)}
-
-/* slack slide */
-.slack-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:1rem;overflow:hidden}
-.slack-header{display:flex;align-items:center;gap:.5rem;margin-bottom:.65rem;padding-bottom:.65rem;border-bottom:1px solid var(--border)}
-.slack-logo{width:28px;height:28px;border-radius:7px;background:#4A154B;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.slack-workspace{font-size:.8rem;font-weight:700;color:var(--text)}
-.slack-channel{font-size:.72rem;color:var(--text-muted);margin-top:.05rem}
-.slack-msg{display:flex;gap:.7rem}
-.slack-bot-av{width:30px;height:30px;border-radius:7px;flex-shrink:0;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.slack-msg-body{}
-.slack-bot-name{font-size:.72rem;font-weight:700;color:var(--text)}
-.slack-timestamp{font-size:.65rem;color:var(--text-light);margin-left:.4rem}
-.slack-text{font-size:.77rem;color:var(--text);line-height:1.5;margin-top:.3rem}
-.slack-attachment{background:var(--blue-sky);border-left:3px solid var(--blue);border-radius:0 8px 8px 0;padding:.65rem .85rem;margin-top:.6rem}
-.slack-att-title{font-size:.75rem;font-weight:700;color:var(--blue-deep);margin-bottom:.35rem}
-.slack-att-row{font-size:.7rem;color:var(--text-muted);display:flex;justify-content:space-between;padding:.2rem 0;border-bottom:1px solid rgba(74,144,217,0.1)}
-.slack-att-row:last-child{border:none;font-weight:700;color:var(--blue-deep)}
-.slack-actions{display:flex;gap:.5rem;margin-top:.7rem}
-.slack-btn{padding:.4rem .9rem;border-radius:6px;font-size:.72rem;font-weight:700;cursor:pointer;border:none;transition:all .2s}
-.slack-btn-primary{background:var(--blue);color:#fff}
-.slack-btn-primary:hover{background:#3a80c9}
-.slack-btn-secondary{background:var(--gray-bg);color:var(--text-muted);border:1px solid var(--border)}
-.slack-btn-secondary:hover{color:var(--text)}
-.slack-notification-strip{display:flex;align-items:center;justify-content:space-between;background:var(--gray-bg);border-radius:8px;padding:.5rem .75rem;margin-bottom:.65rem;font-size:.72rem;color:var(--text-muted)}
-.slack-notif-badge{background:var(--blue);color:#fff;font-size:.6rem;font-weight:700;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center}
-
-/* scroll hint */
-.scroll-hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.4rem;color:var(--text-light);font-size:.72rem;z-index:2}
-.scroll-line{width:1px;height:36px;background:linear-gradient(to bottom,transparent,var(--blue));animation:scrollAnim 2s ease-in-out infinite}
-@keyframes scrollAnim{0%,100%{opacity:.3;transform:scaleY(.8)}50%{opacity:1;transform:scaleY(1)}}
-
-/* ═══════════════════════ LOGO STRIP ═══════════════════════ */
-.logos{background:var(--gray-bg);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:2.75rem 2rem}
-.logos-inner{max-width:1000px;margin:0 auto;text-align:center}
-.logos-label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--text-light);margin-bottom:1.75rem}
-.logos-row{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:2rem 3.5rem}
-.logo-pill{font-size:1rem;font-weight:800;color:var(--text-light);letter-spacing:-.02em;transition:color .2s;cursor:default;display:flex;align-items:center;gap:.5rem}
-.logo-pill:hover{color:var(--blue)}
-.logo-pill svg{opacity:.4}
+.ts-name{font-size:.76rem;font-weight:600;color:var(--ink)}
+.ts-route{font-size:.67rem;color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
 /* ═══════════════════════ FEATURES ═══════════════════════ */
-.features{padding:7rem 2rem;background:#fff}
-.features-header{max-width:600px;margin:0 auto 4rem;text-align:center}
-.features-header .h-section{margin-bottom:1rem}
-.features-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;max-width:1000px;margin:0 auto}
-.feat-card{background:var(--blue-sky);border-radius:var(--r-lg);padding:2rem;display:flex;flex-direction:column;gap:1.25rem;transition:all .3s;position:relative;overflow:hidden}
-.feat-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg)}
-.feat-icon{width:46px;height:46px;border-radius:12px;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 12px rgba(74,144,217,0.15);flex-shrink:0}
-.feat-icon svg{width:22px;height:22px;color:var(--blue)}
-.feat-text{}
-.feat-text h3{margin-bottom:.4rem}
-.feat-text p{font-size:.9rem;color:var(--text-muted);line-height:1.6}
-.feat-mockup{background:#fff;border-radius:var(--r-sm);padding:1rem;box-shadow:0 2px 16px rgba(10,22,40,0.08);margin-top:auto}
-.feat-mock-row{display:flex;align-items:center;gap:.6rem;padding:.35rem 0;border-bottom:1px solid var(--border)}
+.features{padding:var(--sy) 0 calc(var(--sy) * .8)}
+.features-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:20px}
+.feat-card{grid-column:span 6;position:relative;display:flex;flex-direction:column;background:linear-gradient(180deg,#fff 0%,#FCFDFE 100%);border:1px solid var(--line);border-radius:24px;overflow:hidden;box-shadow:var(--shadow-xs);transition:transform .4s var(--ease),box-shadow .4s var(--ease),border-color .4s}
+.feat-card:hover{box-shadow:var(--shadow-lg);border-color:#D4DCE9}
+.feat-card.span-7{grid-column:span 7}
+.feat-card.span-5{grid-column:span 5}
+.feat-text{padding:32px 32px 0}
+.feat-icon{width:40px;height:40px;display:flex;align-items:center;justify-content:center;margin-bottom:22px;border-radius:11px;background:linear-gradient(180deg,#fff,#F2F5FB);box-shadow:inset 0 0 0 1px var(--line),0 1px 2px rgba(10,18,34,.06),0 4px 10px -4px rgba(10,18,34,.08)}
+.feat-icon svg{width:19px;height:19px;color:var(--blue)}
+.feat-text h3{margin-bottom:.5rem}
+.feat-text p{font-size:.95rem;line-height:1.6;color:var(--ink-3);max-width:470px}
+.feat-visual{position:relative;flex:1;display:flex;align-items:center;justify-content:center;min-height:230px;margin:28px 10px 10px;padding:28px;border-radius:16px;background:var(--bg-soft);overflow:hidden;isolation:isolate}
+.feat-visual::before{content:'';position:absolute;inset:0;z-index:-1;background-image:radial-gradient(rgba(10,18,34,.09) 1px,transparent 1px);background-size:14px 14px;-webkit-mask-image:radial-gradient(75% 75% at 50% 50%,#000 20%,transparent 100%);mask-image:radial-gradient(75% 75% at 50% 50%,#000 20%,transparent 100%)}
+.feat-visual::after{content:'';position:absolute;width:70%;height:70%;left:15%;top:15%;z-index:-1;background:radial-gradient(circle,rgba(53,112,227,.12),transparent 70%);filter:blur(10px)}
+.feat-mockup{position:relative;width:100%;max-width:420px;padding:16px;border-radius:14px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-md)}
+.fm-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;padding-bottom:10px;border-bottom:1px solid var(--line-soft)}
+.fm-title{font-size:.8rem;font-weight:600;color:var(--ink)}
+.fm-sub{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-4)}
+.fm-link{font-size:.7rem;font-weight:500;color:var(--blue)}
+.fm-pill{display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:999px;font-size:.64rem;font-weight:550;background:var(--green-bg);color:var(--green)}
+.fm-pill::before{content:'';width:5px;height:5px;border-radius:50%;background:currentColor}
+.feat-mock-row{display:flex;align-items:center;gap:.7rem;padding:9px 0;border-bottom:1px solid var(--line-soft)}
 .feat-mock-row:last-child{border-bottom:none}
-.feat-mock-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.feat-mock-text{flex:1;font-size:.72rem;color:var(--text-muted)}
-.feat-mock-val{font-size:.72rem;font-weight:700;color:var(--text)}
-.feat-mock-bar-wrap{flex:1;height:5px;background:var(--gray-bg);border-radius:3px;overflow:hidden}
-.feat-mock-bar{height:100%;border-radius:3px;background:var(--blue)}
-.feat-chart{display:flex;align-items:flex-end;gap:4px;height:48px}
-.feat-bar-col{flex:1;border-radius:3px 3px 0 0;transition:height .8s ease;background:var(--blue);opacity:.3}
-.feat-bar-col.hi{opacity:1;background:var(--blue)}
-.feat-ai-rows{display:flex;flex-direction:column;gap:.4rem}
-.feat-ai-row{background:var(--gray-bg);border-radius:6px;padding:.45rem .7rem;font-size:.72rem;color:var(--text-muted);display:flex;align-items:center;gap:.5rem}
-.feat-ai-row svg{width:12px;height:12px;color:var(--blue);flex-shrink:0}
+.fm-ico{width:28px;height:28px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border-radius:8px;background:var(--bg-soft);box-shadow:inset 0 0 0 1px var(--line-soft)}
+.fm-ico svg{width:14px;height:14px;color:var(--ink-2)}
+.feat-mock-text{flex:1;font-size:.78rem;color:var(--ink-2)}
+.feat-mock-val{font-size:.78rem;font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}
+.fm-foot{display:flex;justify-content:space-between;align-items:baseline;margin-top:4px;padding-top:10px;border-top:1px dashed var(--line)}
+.fm-foot span:first-child{font-size:.74rem;color:var(--ink-3)}
+.fm-foot span:last-child{font-size:1rem;font-weight:600;letter-spacing:-.02em;color:var(--ink);font-variant-numeric:tabular-nums}
+.feat-mock-row .feat-mock-text.fm-label{flex:0 0 56px}
+.feat-mock-bar-wrap{flex:1;height:8px;border-radius:999px;background:var(--bg-soft);box-shadow:inset 0 0 0 1px var(--line-soft);overflow:hidden}
+.feat-mock-bar{height:100%;border-radius:999px;background:linear-gradient(90deg,#86A6E8,#3570E3)}
+.feat-ai-rows{display:flex;flex-direction:column;gap:8px}
+.feat-ai-row{display:flex;align-items:center;gap:.7rem;padding:.6rem .75rem;border-radius:10px;background:#fff;border:1px solid var(--line-soft);font-size:.78rem;color:var(--ink-2)}
+.feat-ai-ico{width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border-radius:7px}
+.feat-ai-ico svg{width:13px;height:13px}
+.ic-amber{background:var(--amber-bg);color:var(--amber)}
+.ic-blue{background:var(--blue-50);color:var(--blue)}
+.ic-green{background:var(--green-bg);color:var(--green)}
+.sm-channel{display:flex;align-items:center;gap:6px;font-size:.72rem;font-weight:600;color:var(--ink);padding-bottom:10px;margin-bottom:12px;border-bottom:1px solid var(--line-soft)}
+.sm-channel span{color:var(--ink-4);font-weight:450}
+.sm-msg{display:flex;gap:.7rem}
+.sm-av{width:32px;height:32px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border-radius:8px;background:#fff;box-shadow:inset 0 0 0 1px var(--line),var(--shadow-xs)}
+.sm-av img{width:18px;height:18px;object-fit:contain}
+.sm-name{display:flex;align-items:center;gap:6px;font-size:.76rem;font-weight:600;color:var(--ink)}
+.sm-app{padding:1px 4px;border-radius:3px;background:var(--bg-soft);font-size:.56rem;font-weight:600;letter-spacing:.04em;color:var(--ink-3)}
+.sm-time{font-size:.66rem;font-weight:400;color:var(--ink-4)}
+.sm-text{margin-top:3px;font-size:.78rem;line-height:1.55;color:var(--ink-2)}
+.sm-text strong{color:var(--ink);font-weight:600}
+.sm-actions{display:flex;gap:6px;margin-top:10px}
+.sm-btn{padding:4px 10px;border-radius:7px;background:#fff;border:1px solid var(--line);font-size:.68rem;font-weight:550;color:var(--ink-2)}
+.sm-btn.primary{background:var(--ink);border-color:var(--ink);color:#fff}
 
 /* ═══════════════════════ STATS ═══════════════════════ */
-.stats{background:var(--blue-sky);padding:5.5rem 2rem;border-top:1px solid #d4e8f5;border-bottom:1px solid #d4e8f5}
-.stats-inner{max-width:900px;margin:0 auto}
-.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(74,144,217,0.15);border-radius:var(--r-lg);overflow:hidden}
-.stat-cell{background:var(--blue-sky);padding:3rem 2rem;text-align:center}
-.stat-num{font-size:3rem;font-weight:800;line-height:1;color:var(--blue-deep);letter-spacing:-.03em;margin-bottom:.5rem}
-.stat-desc{font-size:.9rem;color:var(--text-muted);line-height:1.5;max-width:160px;margin:0 auto}
+.stats{padding:0 0 var(--sy)}
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.stat-cell{position:relative;padding:3.25rem 2.25rem 3rem}
+.stat-cell+.stat-cell{border-left:1px solid var(--line)}
+.stat-k{font-family:var(--font-mono);font-size:.7rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4);margin-bottom:2.25rem}
+.stat-figure{display:flex;align-items:baseline;margin-bottom:1rem;font-size:clamp(4rem,7.5vw,6.25rem);font-weight:500;line-height:.9;letter-spacing:-.065em;font-variant-numeric:tabular-nums}
+.stat-num{background:linear-gradient(180deg,var(--ink) 30%,#3A4A66 100%);-webkit-background-clip:text;background-clip:text;color:transparent;padding-right:.04em}
+.stat-unit{font-size:.5em;letter-spacing:-.03em;color:var(--blue)}
+.stat-desc{max-width:240px;font-size:1rem;line-height:1.5;color:var(--ink-3)}
+.stat-note{display:block;margin-top:.35rem;font-family:var(--font-mono);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--blue)}
 
-/* ═══════════════════════ TEAM CARDS ═══════════════════════ */
-.teams{padding:7rem 2rem;background:#fff}
-.teams-header{max-width:600px;margin:0 auto 4rem;text-align:center}
-.teams-header .h-section{margin-bottom:1rem}
-.teams-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;max-width:1000px;margin:0 auto}
-.team-card{background:#fff;border:1px solid #dde8f2;border-radius:var(--r-lg);overflow:hidden;cursor:default;box-shadow:0 2px 14px rgba(10,22,40,0.07),0 0 0 0.5px rgba(10,22,40,0.03);transition:transform .25s,box-shadow .25s,border-color .25s;position:relative;display:flex;flex-direction:column}
-.team-card:hover{transform:translateY(-5px);box-shadow:0 14px 44px rgba(10,22,40,0.13);border-color:rgba(74,144,217,0.4)}
-/* Card badge — centered label above title */
-.tc-badge{display:inline-block;background:#EEF3FB;color:#5A7EC0;font-size:.59rem;font-weight:700;text-transform:uppercase;letter-spacing:.13em;padding:.28rem .78rem;border-radius:100px;line-height:1.4;margin-bottom:.75rem}
-/* Card body — centered text */
-.tc-body{padding:2rem 1.5rem 2rem;flex:1;display:flex;flex-direction:column;align-items:center;text-align:center}
-.tc-body h3{font-size:.97rem;font-weight:800;color:var(--text);line-height:1.22;margin-bottom:.38rem;letter-spacing:-.01em}
-.tc-body p{font-size:.8rem;color:var(--text-light);line-height:1.62}
-/* "And more" banner — full-width, light blue-white */
-.tc-and-more{grid-column:1/-1;text-align:center;font-size:clamp(2rem,4vw,3rem);font-weight:800;color:#8BAAC8;letter-spacing:-0.025em;line-height:1.08;padding:1.5rem 0 .25rem}
+/* ═══════════════════════ TEAMS ═══════════════════════ */
+.teams{padding:var(--sy) 0;background:var(--bg-soft);border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft)}
+.teams-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.team-card{position:relative;display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow-xs);cursor:default;transition:transform .35s var(--ease),box-shadow .35s var(--ease),border-color .35s}
+.team-card:hover{box-shadow:var(--shadow-md);border-color:#D2DBE8}
+.tc-body{flex:1;display:flex;flex-direction:column;padding:26px 26px 28px}
+.tc-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:2.5rem}
+.tc-icon{width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:11px;background:var(--blue-50);color:var(--blue);box-shadow:inset 0 0 0 1px rgba(53,112,227,.12)}
+.tc-icon svg{width:19px;height:19px}
+.tc-badge{font-family:var(--font-mono);font-size:.68rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-4)}
+.tc-body h3{font-size:1.12rem;font-weight:600;letter-spacing:-.022em;line-height:1.3;color:var(--ink);margin-bottom:.4rem}
+.tc-body p{font-size:.92rem;line-height:1.6;color:var(--ink-3)}
+.tc-and-more{grid-column:1/-1;display:flex;align-items:center;gap:1.75rem;margin-top:2rem;font-family:var(--font-serif);font-style:italic;font-size:clamp(1.75rem,3vw,2.4rem);line-height:1;letter-spacing:-.01em;color:var(--ink-4);white-space:nowrap}
+.tc-and-more::before,.tc-and-more::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,#D3DBE7)}
+.tc-and-more::after{background:linear-gradient(90deg,#D3DBE7,transparent)}
 
 /* ═══════════════════════ HOW IT WORKS ═══════════════════════ */
-.how{padding:7rem 2rem;background:var(--gray-bg)}
-.how-header{max-width:600px;margin:0 auto 5rem;text-align:center}
-.how-header .h-section{margin-bottom:1rem}
-.how-steps{display:flex;flex-direction:column;gap:5rem;max-width:1000px;margin:0 auto}
-.how-step{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.how{padding:var(--sy) 0;background:var(--bg)}
+.how-steps{display:flex;flex-direction:column;gap:clamp(5rem,9vw,8rem)}
+.how-step{display:grid;grid-template-columns:1fr 1.12fr;gap:clamp(3rem,6vw,6rem);align-items:center}
 .how-step.reverse{direction:rtl}
 .how-step.reverse>*{direction:ltr}
-.how-step-text{}
-.step-num{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--blue);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
-.step-num::before{content:'';display:block;width:24px;height:2px;background:var(--blue);border-radius:1px}
-.how-step-text h3{font-size:1.6rem;font-weight:800;line-height:1.15;letter-spacing:-.025em;color:var(--text);margin-bottom:.85rem}
-.how-step-text p{font-size:1rem;color:var(--text-muted);line-height:1.7}
-.how-bullets{display:flex;flex-direction:column;gap:.5rem;margin-top:1.25rem}
-.how-bullet{display:flex;align-items:flex-start;gap:.6rem;font-size:.9rem;color:var(--text-muted)}
-.how-bullet-dot{width:18px;height:18px;border-radius:50%;background:var(--blue-sky);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
-.how-bullet-dot svg{width:10px;height:10px;color:var(--blue)}
-.how-mockup{background:#fff;border-radius:var(--r-lg);padding:1.5rem;box-shadow:var(--shadow-lg);border:1px solid var(--border)}
-.how-mockup-bar{background:var(--gray-bg);border-radius:8px;padding:.6rem .9rem;margin-bottom:1rem;font-size:.78rem;color:var(--text-light);display:flex;align-items:center;gap:.5rem}
-.how-mockup-bar svg{width:14px;height:14px;color:var(--blue)}
+.step-num{display:inline-flex;align-items:center;gap:.65rem;margin-bottom:1.25rem;font-family:var(--font-mono);font-size:.72rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
+.step-idx{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;background:var(--ink);color:#fff;font-size:.72rem;letter-spacing:0;box-shadow:0 4px 10px -4px rgba(10,18,34,.5)}
+.how-step-text h3{font-size:clamp(1.75rem,2.8vw,2.25rem);font-weight:600;line-height:1.1;letter-spacing:-.04em;color:var(--ink);margin-bottom:1rem}
+.how-step-text p{font-size:1.04rem;line-height:1.65;color:var(--ink-3)}
+.how-bullets{display:flex;flex-direction:column;margin-top:1.75rem;border-top:1px solid var(--line-soft)}
+.how-bullet{display:flex;align-items:center;gap:.8rem;padding:.75rem 0;border-bottom:1px solid var(--line-soft);font-size:.95rem;color:var(--ink-2)}
+.how-bullet-dot{width:20px;height:20px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border-radius:50%;background:var(--blue-50);box-shadow:inset 0 0 0 1px rgba(53,112,227,.18)}
+.how-bullet-dot svg{width:11px;height:11px;color:var(--blue)}
+.how-visual{position:relative;padding:clamp(1.25rem,3.6vw,2.75rem);border-radius:28px;background:linear-gradient(155deg,#F1F6FF 0%,#F7F9FC 55%,#EEF3FB 100%);border:1px solid var(--line-soft);overflow:hidden;isolation:isolate}
+.how-visual::before{content:'';position:absolute;inset:0;z-index:-1;background-image:linear-gradient(rgba(10,18,34,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(10,18,34,.045) 1px,transparent 1px);background-size:32px 32px;-webkit-mask-image:radial-gradient(80% 70% at 70% 20%,#000,transparent 85%);mask-image:radial-gradient(80% 70% at 70% 20%,#000,transparent 85%)}
+.how-visual::after{content:'';position:absolute;z-index:-1;width:65%;height:65%;right:-12%;top:-15%;background:radial-gradient(circle,rgba(53,112,227,.2),transparent 70%);filter:blur(24px)}
+.how-mockup{position:relative;padding:18px;border-radius:16px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-lg)}
+.how-mockup-bar{display:flex;align-items:center;gap:.55rem;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--line-soft);font-size:.8rem;font-weight:550;color:var(--ink)}
+.how-mockup-bar svg{width:15px;height:15px;color:var(--blue)}
+.how-mockup-bar::after{content:'';margin-left:auto;width:28px;height:6px;background:radial-gradient(circle,#D7DDE7 2.5px,transparent 3px) 0 0/10px 6px repeat-x}
 
 /* chat mockup */
-.chat-bubbles{display:flex;flex-direction:column;gap:.6rem}
+.chat-bubbles{display:flex;flex-direction:column;gap:12px}
 .chat-row{display:flex;gap:.6rem;align-items:flex-end}
 .chat-row.right{flex-direction:row-reverse}
-.chat-av{width:28px;height:28px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;color:#fff}
-.chat-bubble{border-radius:14px;padding:.6rem 1rem;font-size:.8rem;line-height:1.4;max-width:75%}
-.chat-bubble.user{background:var(--blue);color:#fff;border-bottom-right-radius:4px}
-.chat-bubble.ai{background:var(--gray-bg);color:var(--text);border-bottom-left-radius:4px}
-.chat-result{background:var(--blue-sky);border:1px solid rgba(74,144,217,0.2);border-radius:var(--r-sm);padding:.85rem 1rem;margin-top:.25rem;font-size:.78rem}
-.chat-result-title{font-weight:700;color:var(--blue-deep);margin-bottom:.4rem;font-size:.8rem}
-.chat-result-row{color:var(--text-muted);display:flex;justify-content:space-between;padding:.2rem 0;border-bottom:1px solid rgba(74,144,217,0.1)}
-.chat-result-row:last-child{border:none;padding-top:.3rem;color:var(--blue);font-weight:700}
+.chat-av{width:28px;height:28px}
+.chat-bubble{max-width:80%;padding:.65rem .95rem;border-radius:14px;font-size:.82rem;line-height:1.45}
+.chat-bubble.user{background:linear-gradient(180deg,#4A82EE,#2E64D6);color:#fff;border-bottom-right-radius:4px;box-shadow:0 6px 14px -6px rgba(47,102,216,.5)}
+.chat-bubble.ai{display:inline-block;background:var(--bg-soft);color:var(--ink);border:1px solid var(--line-soft);border-bottom-left-radius:4px}
+.chat-result{margin-top:8px;padding:.85rem 1rem;border-radius:12px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-sm);font-size:.78rem}
+.chat-result-title{display:flex;align-items:center;gap:.45rem;margin-bottom:.45rem;font-size:.8rem;font-weight:600;color:var(--ink)}
+.chat-result-title svg{width:14px;height:14px;color:var(--blue)}
+.chat-result-row{display:flex;justify-content:space-between;gap:1rem;padding:.4rem 0;border-bottom:1px solid var(--line-soft);color:var(--ink-3)}
+.chat-result-row span:last-child{color:var(--ink-2);font-weight:500;font-variant-numeric:tabular-nums}
+.chat-result-row:last-child{border:none;padding-top:.55rem;color:var(--ink);font-weight:600}
+.chat-result-row:last-child span:last-child{color:var(--blue);font-weight:600}
 
-/* live track mockup */
-.live-track{display:flex;flex-direction:column;gap:.5rem}
-.ltrack-row{display:flex;align-items:center;gap:.7rem;background:var(--gray-bg);border-radius:8px;padding:.65rem .85rem}
-.ltrack-av{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;color:#fff;flex-shrink:0}
-.ltrack-info{flex:1}
-.ltrack-name{font-size:.78rem;font-weight:700;color:var(--text)}
-.ltrack-detail{font-size:.68rem;color:var(--text-light)}
-.ltrack-status{font-size:.65rem;font-weight:600;padding:.18rem .55rem;border-radius:100px}
-.ltrack-progress{height:3px;background:var(--border);border-radius:2px;margin-top:.4rem;overflow:hidden}
-.ltrack-fill{height:100%;border-radius:2px;background:var(--blue)}
+/* live tracker mockup */
+.live-track{display:flex;flex-direction:column;gap:8px}
+.ltrack-row{display:flex;align-items:center;gap:.75rem;padding:.7rem .85rem;border-radius:12px;background:#fff;border:1px solid var(--line-soft)}
+.ltrack-av{width:32px;height:32px}
+.ltrack-info{flex:1;min-width:0}
+.ltrack-name{display:flex;align-items:center;gap:.4rem;font-size:.8rem;font-weight:600;color:var(--ink)}
+.ltrack-detail{font-size:.7rem;color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ltrack-progress{height:4px;margin-top:.5rem;border-radius:999px;background:var(--bg-soft);overflow:hidden}
+.ltrack-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#86A6E8,#3570E3)}
+.live-tag{display:inline-flex;align-items:center;gap:5px;padding:2px 6px;border-radius:5px;background:var(--green-bg);color:var(--green);font-family:var(--font-mono);font-size:.56rem;font-weight:500;letter-spacing:.08em}
+.live-tag .pulse-dot{width:5px;height:5px;background:var(--green)}
 
-/* expense mockup */
-.expense-rows{display:flex;flex-direction:column;gap:.4rem}
-.exp-row{display:flex;align-items:center;gap:.7rem;padding:.5rem .7rem;background:var(--gray-bg);border-radius:8px}
-.exp-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.exp-text{flex:1}
-.exp-name{font-size:.75rem;font-weight:600;color:var(--text)}
-.exp-sub{font-size:.65rem;color:var(--text-light)}
-.exp-amount{font-size:.78rem;font-weight:700;color:var(--text)}
-.exp-check{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+/* expense report mockup */
+.expense-rows{display:flex;flex-direction:column;gap:8px}
+.exp-row{display:flex;align-items:center;gap:.75rem;padding:.6rem .8rem;border-radius:12px;background:#fff;border:1px solid var(--line-soft)}
+.exp-icon{width:30px;height:30px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border-radius:8px}
+.exp-text{flex:1;min-width:0}
+.exp-name{font-size:.78rem;font-weight:600;color:var(--ink)}
+.exp-sub{font-size:.68rem;color:var(--ink-4)}
+.exp-amount{font-size:.8rem;font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}
+.exp-check{width:20px;height:20px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--green-bg)}
+.exp-check svg{color:var(--green)}
+.exp-sum{display:flex;justify-content:space-between;align-items:baseline;margin-top:4px;padding:.75rem .8rem 0;border-top:1px dashed var(--line)}
+.exp-sum span:first-child{font-size:.8rem;font-weight:550;color:var(--ink-2)}
+.exp-sum span:last-child{font-size:1.1rem;font-weight:600;letter-spacing:-.02em;color:var(--ink);font-variant-numeric:tabular-nums}
 
 /* ═══════════════════════ AI CALLOUT ═══════════════════════ */
-.ai-callout{background:var(--blue-deep);padding:7rem 2rem}
-.ai-inner{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
-.ai-text .label{color:#7aa8d8;margin-bottom:1.25rem}
-.ai-text h2{color:#fff;margin-bottom:1.5rem;font-size:clamp(1.8rem,3.5vw,2.5rem);font-weight:800;line-height:1.1;letter-spacing:-.025em}
-.ai-bullets{display:flex;flex-direction:column;gap:.85rem;margin-top:1.75rem}
-.ai-bullet{display:flex;align-items:flex-start;gap:.8rem}
-.ai-bullet-icon{width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.ai-bullet-icon svg{width:16px;height:16px;color:#7aa8d8}
-.ai-bullet-text strong{display:block;color:#fff;font-size:.95rem;margin-bottom:.15rem}
-.ai-bullet-text span{color:#7aa8d8;font-size:.85rem;line-height:1.5}
-.ai-card{background:#fff;border-radius:var(--r-lg);padding:1.75rem;box-shadow:0 24px 80px rgba(0,0,0,0.25)}
-.ai-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem}
-.ai-card-title{font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-light)}
-.ai-card-badge{background:var(--blue-sky);color:var(--blue);font-size:.68rem;font-weight:700;padding:.2rem .7rem;border-radius:100px}
-.ai-insight-row{background:var(--gray-bg);border-radius:var(--r-sm);padding:.85rem 1rem;margin-bottom:.6rem;display:flex;gap:.8rem;align-items:flex-start}
-.ai-insight-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.ai-insight-icon.warn{background:rgba(251,191,36,0.12)}
-.ai-insight-icon.flag{background:rgba(239,68,68,0.1)}
-.ai-insight-icon.trend{background:rgba(34,197,94,0.1)}
-.ai-insight-icon svg{width:14px;height:14px}
-.ai-insight-icon.warn svg{color:#d97706}
-.ai-insight-icon.flag svg{color:#ef4444}
-.ai-insight-icon.trend svg{color:#16a34a}
-.ai-insight-text strong{display:block;font-size:.8rem;color:var(--text);margin-bottom:.2rem}
-.ai-insight-text span{font-size:.75rem;color:var(--text-muted)}
-.ai-score{display:flex;align-items:center;justify-content:space-between;padding:.75rem 0 0;border-top:1px solid var(--border);margin-top:.4rem}
-.ai-score-label{font-size:.8rem;color:var(--text-muted)}
-.ai-score-val{font-size:1.1rem;font-weight:800;color:var(--blue)}
-
-/* ═══════════════════════ TESTIMONIALS ═══════════════════════ */
-.testimonials{padding:7rem 2rem;background:#fff}
-.testimonials-header{max-width:600px;margin:0 auto 4rem;text-align:center}
-.testimonials-header .h-section{margin-bottom:1rem}
-.testimonials-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;max-width:900px;margin:0 auto}
-.testi-card{background:var(--blue-sky);border-radius:var(--r-lg);padding:2.25rem;position:relative;transition:all .3s}
-.testi-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
-.testi-quote-mark{font-size:4rem;line-height:.8;color:var(--blue);opacity:.2;font-family:Georgia,serif;margin-bottom:.5rem}
-.testi-text{font-size:1.05rem;font-style:italic;color:var(--text);line-height:1.7;margin-bottom:1.75rem}
-.testi-author{display:flex;align-items:center;gap:.85rem}
-.testi-av{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:#fff;flex-shrink:0}
-.testi-name{font-weight:700;font-size:.92rem;color:var(--text)}
-.testi-role{font-size:.8rem;color:var(--text-muted)}
-.testi-stars{color:#f59e0b;font-size:.8rem;letter-spacing:.05em;margin-top:.25rem}
+.ai-callout{padding:var(--sy) 0;background:var(--night);color:#fff;overflow:hidden;isolation:isolate}
+.ai-callout::before{content:'';position:absolute;inset:0;z-index:-1;background:radial-gradient(45% 55% at 82% 30%,rgba(53,112,227,.32) 0%,transparent 70%),radial-gradient(40% 50% at 0% 100%,rgba(124,155,227,.16) 0%,transparent 70%)}
+.ai-callout::after{content:'';position:absolute;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:72px 72px;-webkit-mask-image:radial-gradient(70% 70% at 50% 40%,#000,transparent 80%);mask-image:radial-gradient(70% 70% at 50% 40%,#000,transparent 80%)}
+.ai-inner{display:grid;grid-template-columns:1.08fr 1fr;gap:clamp(3rem,6vw,5.5rem);align-items:center}
+.ai-text .h-section{color:#fff;font-size:clamp(2.1rem,3.6vw,2.9rem)}
+.ai-bullets{display:flex;flex-direction:column;gap:1.5rem;margin-top:2.5rem}
+.ai-bullet{display:flex;align-items:flex-start;gap:1rem}
+.ai-bullet-icon{width:38px;height:38px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border-radius:11px;background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.03));box-shadow:inset 0 0 0 1px rgba(255,255,255,.09),inset 0 1px 0 rgba(255,255,255,.08)}
+.ai-bullet-icon svg{width:17px;height:17px;color:#A9C4F6}
+.ai-bullet-text strong{display:block;margin-bottom:.2rem;font-size:1rem;font-weight:550;letter-spacing:-.01em;color:#fff}
+.ai-bullet-text span{display:block;font-size:.92rem;line-height:1.55;color:rgba(226,234,248,.6)}
+.ai-card{position:relative;padding:22px;border-radius:22px;background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.025));border:1px solid rgba(255,255,255,.1);box-shadow:0 50px 100px -30px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.08);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.ai-card::before{content:'';position:absolute;top:-1px;left:15%;right:15%;height:1px;background:linear-gradient(90deg,transparent,rgba(169,196,246,.7),transparent)}
+.ai-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.ai-card-title{font-family:var(--font-mono);font-size:.7rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:rgba(226,234,248,.55)}
+.ai-card-badge{display:inline-flex;align-items:center;gap:.45rem;padding:4px 10px;border-radius:999px;background:rgba(74,222,155,.1);box-shadow:inset 0 0 0 1px rgba(74,222,155,.22);font-size:.7rem;font-weight:550;color:#7EE8B7}
+.ai-insight-row{display:flex;gap:.85rem;align-items:flex-start;margin-bottom:8px;padding:14px;border-radius:14px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.06)}
+.ai-insight-icon{width:30px;height:30px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border-radius:9px}
+.ai-insight-icon svg{width:15px;height:15px}
+.ai-insight-icon.warn{background:rgba(251,191,36,.12)}
+.ai-insight-icon.warn svg{color:#FBBF4D}
+.ai-insight-icon.flag{background:rgba(248,113,113,.12)}
+.ai-insight-icon.flag svg{color:#F87171}
+.ai-insight-icon.trend{background:rgba(74,222,155,.12)}
+.ai-insight-icon.trend svg{color:#4ADE9B}
+.ai-insight-text strong{display:block;margin-bottom:.15rem;font-size:.86rem;font-weight:550;color:#fff}
+.ai-insight-text span{display:block;font-size:.8rem;line-height:1.5;color:rgba(226,234,248,.58)}
+.ai-score{margin-top:14px;padding-top:16px;border-top:1px solid rgba(255,255,255,.08)}
+.ai-score-top{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:10px}
+.ai-score-label{font-size:.84rem;color:rgba(226,234,248,.7)}
+.ai-score-val{font-size:1.5rem;font-weight:600;letter-spacing:-.04em;color:#fff;font-variant-numeric:tabular-nums}
+.ai-score-val span{font-size:.8rem;font-weight:450;letter-spacing:0;color:rgba(226,234,248,.45);margin-left:2px}
+.ai-score-bar{height:6px;border-radius:999px;background:rgba(255,255,255,.07);overflow:hidden}
+.ai-score-bar span{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#7C9BE3,#4ADE9B)}
 
 /* ═══════════════════════ WAITLIST CTA ═══════════════════════ */
-.waitlist{background:var(--blue-deep);padding:7rem 2rem;text-align:center;position:relative;overflow:hidden}
-.waitlist-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(74,144,217,0.15) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(74,144,217,0.1) 0%,transparent 60%)}
-.waitlist-content{position:relative;z-index:1;max-width:620px;margin:0 auto}
-.waitlist-eyebrow{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#7aa8d8;margin-bottom:1.25rem}
-.waitlist h2{color:#fff;font-size:clamp(2.2rem,5vw,3.75rem);font-weight:800;line-height:1.05;letter-spacing:-.03em;margin-bottom:1.25rem}
-.waitlist-sub{color:#7aa8d8;font-size:1rem;line-height:1.65;margin-bottom:2.75rem;max-width:440px;margin-left:auto;margin-right:auto}
-.waitlist-form{display:flex;gap:.75rem;max-width:480px;margin:0 auto 1.25rem;flex-wrap:wrap;justify-content:center}
-.waitlist-input{flex:1;min-width:220px;padding:.9rem 1.4rem;border-radius:100px;border:none;font-family:'DM Sans',sans-serif;font-size:.97rem;background:#fff;color:var(--text);outline:none;box-shadow:0 2px 16px rgba(0,0,0,0.2)}
-.waitlist-input::placeholder{color:var(--text-light)}
-.waitlist-input:focus{box-shadow:0 0 0 3px rgba(74,144,217,0.4),0 2px 16px rgba(0,0,0,0.2)}
-.waitlist-note{font-size:.8rem;color:rgba(122,168,216,.6)}
+.waitlist{padding:var(--sy) 0}
+.waitlist-panel{position:relative;padding:clamp(4rem,9vw,7rem) 1.5rem;border-radius:32px;background:linear-gradient(180deg,#F4F8FF 0%,#FAFBFF 100%);border:1px solid var(--line);text-align:center;overflow:hidden;isolation:isolate}
+.waitlist-bg{position:absolute;inset:0;z-index:-1;background:radial-gradient(50% 60% at 50% 0%,rgba(53,112,227,.18),transparent 70%),radial-gradient(30% 40% at 0% 100%,rgba(169,201,234,.4),transparent 70%),radial-gradient(30% 40% at 100% 100%,rgba(124,155,227,.22),transparent 70%)}
+.waitlist-bg::after{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(10,18,34,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(10,18,34,.05) 1px,transparent 1px);background-size:48px 48px;-webkit-mask-image:radial-gradient(60% 60% at 50% 30%,#000,transparent 85%);mask-image:radial-gradient(60% 60% at 50% 30%,#000,transparent 85%)}
+.waitlist-content{position:relative;max-width:640px;margin:0 auto}
+.waitlist-logo{width:64px;height:64px;display:flex;align-items:center;justify-content:center;margin:0 auto 2rem;border-radius:18px;background:#fff;box-shadow:inset 0 0 0 1px var(--line),0 1px 2px rgba(10,18,34,.05),0 16px 32px -12px rgba(16,38,90,.25)}
+.waitlist-logo img{width:34px;height:34px;object-fit:contain}
+.waitlist h2{font-size:clamp(2.5rem,6vw,4.5rem);font-weight:600;line-height:.98;letter-spacing:-.055em;color:var(--ink);margin-bottom:1.5rem}
+.waitlist-sub{max-width:460px;margin:0 auto 2.5rem;font-size:1.08rem;line-height:1.6;color:var(--ink-3)}
+.waitlist-form{display:flex;justify-content:center}
 
 /* ═══════════════════════ FOOTER ═══════════════════════ */
-.footer{background:#0A1628;padding:5rem 2rem 2.5rem}
-.footer-inner{max-width:1160px;margin:0 auto}
-.footer-top{display:grid;grid-template-columns:280px 1fr;gap:4rem;margin-bottom:4rem}
-.footer-brand .logo-mark{display:flex;align-items:center;gap:.6rem;margin-bottom:1rem}
-.footer-brand .logo-mark span{font-size:1.25rem;font-weight:800;letter-spacing:-.03em;color:#fff}
-.footer-brand p{font-size:.875rem;color:#4a6080;line-height:1.6;max-width:220px}
-.footer-cols{display:grid;grid-template-columns:repeat(4,1fr);gap:2.5rem}
-.footer-col h4{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#4a6080;margin-bottom:1.1rem}
-.footer-col a{display:block;font-size:.875rem;color:#4a6080;margin-bottom:.65rem;transition:color .18s}
-.footer-col a:hover{color:#fff}
-.footer-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:2rem;border-top:1px solid rgba(255,255,255,0.06);font-size:.8rem;color:#2a3e58}
-.footer-socials{display:flex;gap:1rem}
-.footer-social{width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;color:#4a6080;transition:all .18s;cursor:pointer}
-.footer-social:hover{background:rgba(74,144,217,0.15);color:var(--blue);border-color:rgba(74,144,217,0.3)}
+.footer{background:var(--bg);border-top:1px solid var(--line);padding-top:4.5rem;overflow:hidden}
+.footer-top{display:grid;grid-template-columns:1.1fr 2fr;gap:4rem;padding-bottom:4rem}
+.footer-brand .logo-mark{display:flex;align-items:center;gap:.55rem;margin-bottom:1rem}
+.footer-brand .logo-mark img{width:26px;height:26px;object-fit:contain;mix-blend-mode:multiply}
+.footer-brand .logo-mark span{font-size:1.1rem;font-weight:600;letter-spacing:-.035em;color:var(--ink)}
+.footer-brand p{max-width:310px;font-size:.92rem;line-height:1.6;color:var(--ink-3)}
+.footer-cols{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem}
+.footer-col h4{margin-bottom:1.1rem;font-family:var(--font-mono);font-size:.7rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
+.footer-col a{display:block;width:fit-content;margin-bottom:.7rem;font-size:.92rem;color:var(--ink-3);transition:color .18s}
+.footer-col a:hover{color:var(--ink)}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;padding:1.5rem 0;border-top:1px solid var(--line-soft);font-size:.84rem;color:var(--ink-4)}
+.footer-wordmark{font-size:clamp(7rem,26vw,22rem);font-weight:600;line-height:.74;letter-spacing:-.075em;text-align:center;margin-bottom:-.17em;background:linear-gradient(180deg,#E6EBF3 0%,rgba(230,235,243,0) 85%);-webkit-background-clip:text;background-clip:text;color:transparent;user-select:none;pointer-events:none}
 
 /* ═══════════════════════ REVEAL ANIMATIONS ═══════════════════ */
-.reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
 .reveal.visible{opacity:1;transform:translateY(0)}
-.reveal-up{opacity:0;transform:translateY(40px);transition:opacity .7s ease,transform .7s ease}
+.reveal-up{opacity:0;transform:translateY(40px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
 .reveal-up.visible{opacity:1;transform:translateY(0)}
-.reveal-left{opacity:0;transform:translateX(-40px);transition:opacity .7s ease,transform .7s ease}
+.reveal-left{opacity:0;transform:translateX(-32px);transition:opacity .85s var(--ease),transform .85s var(--ease)}
 .reveal-left.visible{opacity:1;transform:translateX(0)}
-.reveal-right{opacity:0;transform:translateX(40px);transition:opacity .7s ease,transform .7s ease}
+.reveal-right{opacity:0;transform:translateX(32px);transition:opacity .85s var(--ease),transform .85s var(--ease)}
 .reveal-right.visible{opacity:1;transform:translateX(0)}
-.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}.d5{transition-delay:.5s}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}.d5{transition-delay:.4s}
 
 /* ═══════════════════════ RESPONSIVE ═══════════════════════ */
+@media(max-width:1024px){
+  .feat-card,.feat-card.span-7,.feat-card.span-5{grid-column:span 6}
+}
 @media(max-width:900px){
   .features-grid{grid-template-columns:1fr}
+  .feat-card,.feat-card.span-7,.feat-card.span-5{grid-column:auto}
   .teams-grid{grid-template-columns:repeat(2,1fr)}
-  .how-step{grid-template-columns:1fr;gap:2rem}
-  .how-step.reverse{direction:ltr}
-  .ai-inner{grid-template-columns:1fr;gap:3rem}
-  .testimonials-grid{grid-template-columns:1fr}
-  .stats-grid{grid-template-columns:1fr;gap:1px}
-  .footer-top{grid-template-columns:1fr;gap:2.5rem}
-  .footer-cols{grid-template-columns:repeat(2,1fr)}
+  .how-step,.how-step.reverse{grid-template-columns:1fr;gap:2.5rem;direction:ltr}
+  .ai-inner{grid-template-columns:1fr;gap:3.5rem}
+  .stats-grid{grid-template-columns:1fr}
+  .stat-cell+.stat-cell{border-left:none;border-top:1px solid var(--line)}
+  .stat-k{margin-bottom:1.5rem}
+  .footer-top{grid-template-columns:1fr;gap:3rem}
+  /* single column: rise in instead of sliding sideways, so nothing pokes past the screen edge */
+  .reveal-left,.reveal-right{transform:translateY(24px)}
+  .reveal-left.visible,.reveal-right.visible{transform:none}
 }
 @media(max-width:768px){
   .nav-links,.nav-right{display:none}
   .nav-hamburger{display:flex}
   .mobile-nav{display:flex}
-  .hero{padding:8rem 1.5rem 4rem}
+  .nav-inner{padding:0 6px 0 14px}
+  .hero{padding:8.5rem 1.25rem 4.5rem}
+  .hero-mockup{margin-top:3.5rem}
+  .hero-mockup-card{padding:5px;border-radius:18px;transform:perspective(1800px) rotateX(4deg)}
+  .mockup-window{border-radius:13px}
+  .mockup-url{min-width:0}
+  .c-aside{display:none}
+  .c-main{padding:14px}
+  .mockup-cards-row{gap:6px}
+  .m-stat-card{padding:10px}
+  .m-stat-val{font-size:1.1rem}
+  .m-stat-sub{flex-wrap:wrap}
+  .carousel-track{height:420px;-webkit-mask-image:linear-gradient(180deg,#000 88%,transparent);mask-image:linear-gradient(180deg,#000 88%,transparent)}
   .teams-grid{grid-template-columns:1fr}
+  .tc-head{margin-bottom:1.75rem}
+  .feat-text{padding:26px 24px 0}
+  .feat-visual{padding:18px;min-height:0}
+  .how-visual{padding:10px;border-radius:22px}
+  .how-mockup{padding:14px}
+  .stat-cell{padding:2.25rem .25rem 2rem}
+  .stat-k{margin-bottom:1rem}
+  .footer-cols{grid-template-columns:repeat(2,1fr)}
   .footer-bottom{flex-direction:column;gap:1rem}
 }
 @media(max-width:480px){
-  .hero-ctas{flex-direction:column;align-items:center}
-  .logos-row{gap:1.5rem 2.5rem}
-  .footer-cols{grid-template-columns:1fr 1fr}
+  .hero-ctas{flex-direction:column;align-items:stretch}
+  .hero-eyebrow{font-size:.78rem}
+  .exp-c-date{display:none}
+  .tc-and-more{gap:1rem}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .reveal,.reveal-up,.reveal-left,.reveal-right{opacity:1;transform:none}
 }
 </style>
 </head>
@@ -544,8 +559,8 @@ section{position:relative}
 <nav class="nav" id="navbar">
   <div class="nav-inner">
     <a href="#" class="nav-logo">
-      <img src="flybylogo.png" alt="Flyby AI logo" width="34" height="34" style="object-fit:contain"/>
-      flyby AI
+      <img src="flybylogo.png" alt="Flyby AI logo" width="28" height="28"/>
+      <span>flyby <span class="nav-logo-ai">AI</span></span>
     </a>
     <ul class="nav-links">
       <li><a href="#features">Platform</a></li>
@@ -554,7 +569,7 @@ section{position:relative}
       <li><a href="#waitlist">Pricing</a></li>
     </ul>
     <div class="nav-right">
-      <a href="#waitlist" class="btn btn-blue">Request Demo</a>
+      <a href="#waitlist" class="btn btn-ink btn-sm">Request Demo</a>
     </div>
     <button class="nav-hamburger" id="hamburger" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -566,7 +581,7 @@ section{position:relative}
   <a href="#how">How it works</a>
   <a href="#teams">Teams</a>
   <a href="#waitlist">Pricing</a>
-  <a href="#waitlist" class="btn btn-blue">Request Demo</a>
+  <a href="#waitlist" class="btn btn-ink">Request Demo</a>
 </div>
 
 <!-- ══════════════════════════════ HERO ══════════════════════════════ -->
@@ -576,15 +591,14 @@ section{position:relative}
 
   <div class="hero-content">
     <div class="hero-eyebrow reveal">
-      <div class="hero-eyebrow-dot">
-        <svg viewBox="0 0 10 10" fill="none"><path d="M5 1.5L8.5 5 5 8.5 1.5 5Z" fill="#4A90D9"/></svg>
-      </div>
-      Now in early access — join the waitlist
+      <span class="hero-eyebrow-tag"><span class="pulse-dot"></span>Early access</span>
+      <span>Now open, join the waitlist</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
     </div>
-    <h1 class="h-hero reveal d1">Business Travel,<br/><span class="blue-accent">Built for You.</span></h1>
-    <p class="hero-sub reveal d2">Flyby plans, books, and manages your corporate trips — and handles expenses automatically.</p>
+    <h1 class="h-hero reveal d1">Business Travel,<br/><span class="serif accent">Built for You.</span></h1>
+    <p class="hero-sub reveal d2">Flyby plans, books, and manages your corporate trips, and handles expenses automatically.</p>
     <div class="hero-ctas reveal d3">
-      <button type="button" class="btn btn-blue btn-lg" data-tally-open="zxdvlE" data-tally-layout="modal" data-tally-width="540" data-tally-overlay="1" data-tally-emoji-text="👋" data-tally-emoji-animation="wave">Join the Waitlist</button>
+      <button type="button" class="btn btn-blue btn-lg" data-tally-open="zxdvlE" data-tally-layout="modal" data-tally-width="540" data-tally-overlay="1" data-tally-emoji-text="👋" data-tally-emoji-animation="wave">Join the Waitlist<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
       <a href="#how" class="btn btn-outline btn-lg">See it in action</a>
     </div>
   </div>
@@ -592,223 +606,228 @@ section{position:relative}
   <div class="hero-mockup reveal d4">
     <div class="carousel-outer">
       <div class="hero-mockup-card">
-        <div class="mockup-topbar">
-          <div class="mockup-dot r"></div>
-          <div class="mockup-dot y"></div>
-          <div class="mockup-dot g"></div>
-          <div class="mockup-url" id="carouselUrl">flyby.app / dashboard</div>
-        </div>
-
-        <div class="carousel-container" id="carouselContainer">
-          <!-- Prev / Next arrows -->
-          <button class="c-arrow c-prev" id="cPrev" aria-label="Previous">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
-          </button>
-          <button class="c-arrow c-next" id="cNext" aria-label="Next">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
-          </button>
-
-          <div class="carousel-track" id="carouselTrack">
-
-            <!-- SLIDE 1 · Dashboard -->
-            <div class="c-slide active" data-url="flyby.app / home">
-              <div class="c-aside">
-                <div class="m-nav-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Home</div>
-                <div class="m-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>Trips</div>
-                <div class="m-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>Expenses</div>
-                <div class="m-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8z"/></svg>Team</div>
-                <div class="m-nav-item" style="margin-top:auto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>Settings</div>
-              </div>
-              <div class="c-main">
-                <div class="mockup-search"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>Search trips, people, expenses…</div>
-                <div class="mockup-cards-row">
-                  <div class="m-stat-card"><div class="m-stat-label">Monthly Spend</div><div class="m-stat-val">$48.2k</div><div class="m-stat-sub"><span class="m-stat-badge badge-green">↓ 12%</span> vs last month</div></div>
-                  <div class="m-stat-card"><div class="m-stat-label">Active Trips</div><div class="m-stat-val">7</div><div class="m-stat-sub"><span class="m-stat-badge badge-blue">4 countries</span></div></div>
-                  <div class="m-stat-card"><div class="m-stat-label">Pending Expenses</div><div class="m-stat-val">0</div><div class="m-stat-sub"><span class="m-stat-badge badge-green">All reconciled</span></div></div>
-                </div>
-                <div class="mockup-trips">
-                  <div class="trips-head"><span>Team traveling now</span><span style="color:var(--blue);font-size:.68rem">View all →</span></div>
-                  <div class="trip-row"><div class="trip-av" style="background:#4A90D9">JC</div><div class="trip-info"><div class="trip-name">Julia Chen</div><div class="trip-route">SF → London · Lands in 3h 20m</div></div><div class="trip-chip chip-active">In flight</div></div>
-                  <div class="trip-row"><div class="trip-av" style="background:#1A3A5C">MT</div><div class="trip-info"><div class="trip-name">Mark Thompson</div><div class="trip-route">Chicago → Tokyo · Checked in</div></div><div class="trip-chip chip-done">At hotel</div></div>
-                  <div class="trip-row"><div class="trip-av" style="background:#2d6bb5">PP</div><div class="trip-info"><div class="trip-name">Priya Patel</div><div class="trip-route">NYC → Paris · Departs in 4h</div></div><div class="trip-chip chip-soon">Upcoming</div></div>
-                </div>
-              </div>
+        <div class="mockup-window">
+          <div class="mockup-topbar">
+            <div class="mockup-dot"></div>
+            <div class="mockup-dot"></div>
+            <div class="mockup-dot"></div>
+            <div class="mockup-url">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg>
+              <span id="carouselUrl">flyby.app / home</span>
             </div>
+          </div>
 
-            <!-- SLIDE 2 · AI Booking -->
-            <div class="c-slide" data-url="flyby.app / book">
-              <div class="c-aside">
-                <div class="m-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Home</div>
-                <div class="m-nav-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>Trips</div>
-                <div class="m-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>Expenses</div>
-                <div class="m-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8z"/></svg>Team</div>
-                <div class="m-nav-item" style="margin-top:auto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>Settings</div>
-              </div>
-              <div class="c-main">
-                <div class="chat-slide-bubbles">
-                  <div class="cs-row right">
-                    <div class="cs-av" style="background:#4A90D9">JC</div>
-                    <div class="cs-bubble user">Book NYC → London, Nov 12–15, 2 people, under $3k</div>
+          <div class="carousel-container" id="carouselContainer">
+            <!-- Prev / Next arrows -->
+            <button class="c-arrow c-prev" id="cPrev" aria-label="Previous">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <button class="c-arrow c-next" id="cNext" aria-label="Next">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+
+            <div class="carousel-track" id="carouselTrack">
+
+              <!-- SLIDE 1 · Dashboard -->
+              <div class="c-slide active" data-url="flyby.app / home">
+                <div class="c-aside">
+                  <div class="m-nav-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Home</div>
+                  <div class="m-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>Trips</div>
+                  <div class="m-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>Expenses</div>
+                  <div class="m-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8z"/></svg>Team</div>
+                  <div class="m-nav-item m-nav-bottom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-9M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>Settings</div>
+                </div>
+                <div class="c-main">
+                  <div class="mockup-search"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>Search trips, people, expenses…<kbd>⌘K</kbd></div>
+                  <div class="mockup-cards-row">
+                    <div class="m-stat-card"><div class="m-stat-label">Monthly spend</div><div class="m-stat-val">$48.2k</div><div class="m-stat-sub"><span class="m-stat-badge badge-green">↓ 12%</span> vs last month</div></div>
+                    <div class="m-stat-card"><div class="m-stat-label">Active trips</div><div class="m-stat-val">7</div><div class="m-stat-sub"><span class="m-stat-badge badge-blue">4 countries</span></div></div>
+                    <div class="m-stat-card"><div class="m-stat-label">Pending expenses</div><div class="m-stat-val">0</div><div class="m-stat-sub"><span class="m-stat-badge badge-green">All reconciled</span></div></div>
                   </div>
-                  <div class="cs-row">
-                    <div class="cs-av" style="background:var(--blue-sky);border:1.5px solid var(--border)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2.5"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg></div>
-                    <div style="flex:1;min-width:0">
-                      <div class="cs-bubble bot">Found the best options within your policy:</div>
-                      <div class="flight-options">
-                        <div class="flight-opt recommended">
-                          <div><div class="flight-route">JFK → LHR · BA 178</div><div class="flight-meta">7h 15m · Non-stop · Dep 09:00</div></div>
-                          <div class="flight-price">$680/pp</div>
+                  <div class="mockup-trips">
+                    <div class="trips-head"><span>Team traveling now</span><span class="trips-link">View all →</span></div>
+                    <div class="trip-row"><div class="trip-av" style="background:#3570E3">JC</div><div class="trip-info"><div class="trip-name">Julia Chen</div><div class="trip-route">SF → London · Lands in 3h 20m</div></div><div class="trip-chip chip-active">In flight</div></div>
+                    <div class="trip-row"><div class="trip-av" style="background:#0A1222">MT</div><div class="trip-info"><div class="trip-name">Mark Thompson</div><div class="trip-route">Chicago → Tokyo · Checked in</div></div><div class="trip-chip chip-done">At hotel</div></div>
+                    <div class="trip-row"><div class="trip-av" style="background:#7C9BE3">PP</div><div class="trip-info"><div class="trip-name">Priya Patel</div><div class="trip-route">NYC → Paris · Departs in 4h</div></div><div class="trip-chip chip-soon">Upcoming</div></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- SLIDE 2 · AI Booking -->
+              <div class="c-slide" data-url="flyby.app / book">
+                <div class="c-aside">
+                  <div class="m-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Home</div>
+                  <div class="m-nav-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>Trips</div>
+                  <div class="m-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>Expenses</div>
+                  <div class="m-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8z"/></svg>Team</div>
+                  <div class="m-nav-item m-nav-bottom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-9M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>Settings</div>
+                </div>
+                <div class="c-main">
+                  <div class="chat-slide-bubbles">
+                    <div class="cs-row right">
+                      <div class="cs-av" style="background:#3570E3">JC</div>
+                      <div class="cs-bubble user">Book NYC → London, Nov 12–15, 2 people, under $3k</div>
+                    </div>
+                    <div class="cs-row">
+                      <div class="cs-av bot-av"><img src="flybylogo.png" alt=""/></div>
+                      <div style="flex:1;min-width:0">
+                        <div class="cs-bubble bot">Found the best options within your policy:</div>
+                        <div class="flight-options">
+                          <div class="flight-opt recommended">
+                            <div><div class="flight-route">JFK → LHR · BA 178</div><div class="flight-meta">7h 15m · Non-stop · Dep 09:00</div></div>
+                            <div class="flight-price">$680/pp</div>
+                          </div>
+                          <div class="flight-opt">
+                            <div><div class="flight-route">JFK → LHR · AA 100</div><div class="flight-meta">7h 30m · Non-stop · Dep 10:30</div></div>
+                            <div class="flight-price">$740/pp</div>
+                          </div>
                         </div>
-                        <div class="flight-opt">
-                          <div><div class="flight-route">JFK → LHR · AA 100</div><div class="flight-meta">7h 30m · Non-stop · Dep 10:30</div></div>
-                          <div class="flight-price">$740/pp</div>
+                        <div class="hotel-opt">
+                          <div class="hotel-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg></div>
+                          <div class="hotel-info"><div class="hotel-name">Marriott London City</div><div class="hotel-sub">3 nights · Nov 12–15 · Within policy</div></div>
+                          <div class="hotel-price">$178/n</div>
                         </div>
-                      </div>
-                      <div class="hotel-opt">
-                        <div class="hotel-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg></div>
-                        <div class="hotel-info"><div class="hotel-name">Marriott London City</div><div class="hotel-sub">3 nights · Nov 12–15 · Within policy</div></div>
-                        <div class="hotel-price">$178/n</div>
                       </div>
                     </div>
-                  </div>
-                  <div class="cs-row right">
-                    <div class="cs-av" style="background:#4A90D9">JC</div>
-                    <div class="cs-bubble user">Book BA 178 + Marriott for both ✓</div>
-                  </div>
-                  <div class="cs-row">
-                    <div class="cs-av" style="background:var(--blue-sky);border:1.5px solid var(--border)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2.5"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg></div>
-                    <div class="cs-bubble bot">Done! Confirmations sent. Total: <strong>$2,676</strong> · Within budget ✅</div>
+                    <div class="cs-row right">
+                      <div class="cs-av" style="background:#3570E3">JC</div>
+                      <div class="cs-bubble user">Book BA 178 + Marriott for both</div>
+                    </div>
+                    <div class="cs-row">
+                      <div class="cs-av bot-av"><img src="flybylogo.png" alt=""/></div>
+                      <div class="cs-bubble bot">Done! Confirmations sent. Total: <strong>$2,676</strong> · Within budget ✓</div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <!-- SLIDE 3 · AI Expense Insights -->
-            <div class="c-slide" data-url="flyby.app / expenses">
-              <div class="c-aside">
-                <div class="m-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Home</div>
-                <div class="m-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>Trips</div>
-                <div class="m-nav-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>Expenses</div>
-                <div class="m-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8z"/></svg>Team</div>
-                <div class="m-nav-item" style="margin-top:auto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>Settings</div>
-              </div>
-              <div class="c-main">
-                <div class="ai-insights-box">
-                  <div class="aib-header">
-                    <div class="aib-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg></div>
-                    <div><div class="aib-title">AI Expense Insights</div><div class="aib-sub">Updated just now · Nov 2024</div></div>
+              <!-- SLIDE 3 · AI Expense Insights -->
+              <div class="c-slide" data-url="flyby.app / expenses">
+                <div class="c-aside">
+                  <div class="m-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Home</div>
+                  <div class="m-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>Trips</div>
+                  <div class="m-nav-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>Expenses</div>
+                  <div class="m-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8z"/></svg>Team</div>
+                  <div class="m-nav-item m-nav-bottom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-9M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>Settings</div>
+                </div>
+                <div class="c-main">
+                  <div class="ai-insights-box">
+                    <div class="aib-header">
+                      <div class="aib-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.8L20 10l-6.1 1.2L12 17l-1.9-5.8L4 10l6.1-1.2z"/></svg></div>
+                      <div><div class="aib-title">AI Expense Insights</div><div class="aib-sub">Updated just now · Nov 2024</div></div>
+                    </div>
+                    <div class="aib-rows">
+                      <div class="aib-row"><span class="aib-tag tag-trend">Trend</span> Hotel spend up 18% vs last quarter, with 3 bookings above preferred rate</div>
+                      <div class="aib-row"><span class="aib-tag tag-policy">Policy</span> 2 meal expenses exceed $75 daily limit, flagged for approval</div>
+                      <div class="aib-row"><span class="aib-tag tag-anomaly">Anomaly</span> Duplicate charge detected · Delta Airlines · $320 · Nov 8</div>
+                    </div>
                   </div>
-                  <div class="aib-rows">
-                    <div class="aib-row"><span class="aib-tag tag-trend">Trend</span> Hotel spend up 18% vs last quarter — 3 bookings above preferred rate</div>
-                    <div class="aib-row"><span class="aib-tag tag-policy">Policy</span> 2 meal expenses exceed $75 daily limit — flagged for approval</div>
-                    <div class="aib-row"><span class="aib-tag tag-anomaly">Anomaly</span> Duplicate charge detected · Delta Airlines · $320 · Nov 8</div>
+                  <div class="exp-table">
+                    <div class="exp-trow">
+                      <div class="exp-trow-icon" style="background:var(--blue-50)"><svg viewBox="0 0 24 24" fill="none" stroke="#3570E3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg></div>
+                      <div class="exp-trow-name">Delta Flight · DL401</div>
+                      <div class="exp-trow-amount">$540</div>
+                      <span class="badge-approved">Approved</span>
+                    </div>
+                    <div class="exp-trow">
+                      <div class="exp-trow-icon" style="background:var(--bg-soft)"><svg viewBox="0 0 24 24" fill="none" stroke="#28354B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg></div>
+                      <div class="exp-trow-name">Marriott Chicago · 2 nights</div>
+                      <div class="exp-trow-amount">$380</div>
+                      <span class="badge-pending">Pending</span>
+                    </div>
+                    <div class="exp-trow">
+                      <div class="exp-trow-icon" style="background:var(--red-bg)"><svg viewBox="0 0 24 24" fill="none" stroke="#C02D2D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+                      <div class="exp-trow-name">Team dinner · over daily limit</div>
+                      <div class="exp-trow-amount">$312</div>
+                      <span class="badge-disputed">Flagged</span>
+                    </div>
                   </div>
                 </div>
-                <div class="exp-table">
-                  <div class="exp-trow">
-                    <div class="exp-trow-icon" style="background:rgba(74,144,217,.12)"><svg viewBox="0 0 24 24" fill="none" stroke="#4A90D9" stroke-width="2" stroke-linecap="round"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg></div>
-                    <div class="exp-trow-name">Delta Flight · DL401</div>
-                    <div class="exp-trow-amount">$540</div>
-                    <span class="badge-approved">Approved</span>
-                  </div>
-                  <div class="exp-trow">
-                    <div class="exp-trow-icon" style="background:rgba(26,58,92,.08)"><svg viewBox="0 0 24 24" fill="none" stroke="#1A3A5C" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg></div>
-                    <div class="exp-trow-name">Marriott Chicago · 2 nights</div>
-                    <div class="exp-trow-amount">$380</div>
-                    <span class="badge-pending">Pending</span>
-                  </div>
-                  <div class="exp-trow">
-                    <div class="exp-trow-icon" style="background:rgba(239,68,68,.08)"><svg viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
-                    <div class="exp-trow-name">Team dinner · over daily limit</div>
-                    <div class="exp-trow-amount">$312</div>
-                    <span class="badge-disputed">Flagged</span>
-                  </div>
-                </div>
               </div>
-            </div>
 
-            <!-- SLIDE 4 · Expense Table -->
-            <div class="c-slide" data-url="flyby.app / expenses / list">
-              <div class="c-aside">
-                <div class="m-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Home</div>
-                <div class="m-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>Trips</div>
-                <div class="m-nav-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>Expenses</div>
-                <div class="m-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8z"/></svg>Team</div>
-                <div class="m-nav-item" style="margin-top:auto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>Settings</div>
-              </div>
-              <div class="c-main">
-                <div class="mockup-search"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>Filter by trip, category, date…</div>
-                <div class="exp-table">
-                  <div class="exp-trow" style="background:var(--gray-bg);border-radius:6px;padding:.35rem .6rem">
-                    <div style="font-size:.63rem;font-weight:700;color:var(--text-light);text-transform:uppercase;letter-spacing:.06em;flex:0 0 52px">Date</div>
-                    <div style="font-size:.63rem;font-weight:700;color:var(--text-light);text-transform:uppercase;letter-spacing:.06em;flex:1">Description</div>
-                    <div style="font-size:.63rem;font-weight:700;color:var(--text-light);text-transform:uppercase;letter-spacing:.06em;flex:0 0 55px;text-align:right">Amount</div>
-                    <div style="font-size:.63rem;font-weight:700;color:var(--text-light);text-transform:uppercase;letter-spacing:.06em;flex:0 0 65px;text-align:right">Status</div>
+              <!-- SLIDE 4 · Expense Table -->
+              <div class="c-slide" data-url="flyby.app / expenses / list">
+                <div class="c-aside">
+                  <div class="m-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Home</div>
+                  <div class="m-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>Trips</div>
+                  <div class="m-nav-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>Expenses</div>
+                  <div class="m-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8z"/></svg>Team</div>
+                  <div class="m-nav-item m-nav-bottom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-9M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>Settings</div>
+                </div>
+                <div class="c-main">
+                  <div class="mockup-search"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>Filter by trip, category, date…<kbd>⌘F</kbd></div>
+                  <div class="exp-table">
+                    <div class="exp-trow exp-thead">
+                      <div class="exp-c-date">Date</div>
+                      <div class="exp-c-desc">Description</div>
+                      <div class="exp-c-amt">Amount</div>
+                      <div class="exp-c-status">Status</div>
+                    </div>
+                    <div class="exp-trow">
+                      <div class="exp-c-date">Nov 12</div>
+                      <div class="exp-trow-name">United Airlines UA927 · NYC→LHR</div>
+                      <div class="exp-trow-amount exp-c-amt">$680</div>
+                      <div class="exp-c-status"><span class="badge-approved">Approved</span></div>
+                    </div>
+                    <div class="exp-trow">
+                      <div class="exp-c-date">Nov 12</div>
+                      <div class="exp-trow-name">Marriott Canary Wharf · 3 nights</div>
+                      <div class="exp-trow-amount exp-c-amt">$567</div>
+                      <div class="exp-c-status"><span class="badge-approved">Approved</span></div>
+                    </div>
+                    <div class="exp-trow">
+                      <div class="exp-c-date">Nov 13</div>
+                      <div class="exp-trow-name">Client dinner · Nobu London</div>
+                      <div class="exp-trow-amount exp-c-amt">$284</div>
+                      <div class="exp-c-status"><span class="badge-pending">Pending</span></div>
+                    </div>
+                    <div class="exp-trow">
+                      <div class="exp-c-date">Nov 14</div>
+                      <div class="exp-trow-name">Heathrow Express · Rail</div>
+                      <div class="exp-trow-amount exp-c-amt">$38</div>
+                      <div class="exp-c-status"><span class="badge-approved">Approved</span></div>
+                    </div>
+                    <div class="exp-trow">
+                      <div class="exp-c-date">Nov 15</div>
+                      <div class="exp-trow-name">Delta DL402 · LHR→JFK return</div>
+                      <div class="exp-trow-amount exp-c-amt">$620</div>
+                      <div class="exp-c-status"><span class="badge-disputed">Flagged</span></div>
+                    </div>
                   </div>
-                  <div class="exp-trow">
-                    <div style="font-size:.7rem;color:var(--text-light);flex:0 0 52px">Nov 12</div>
-                    <div class="exp-trow-name">United Airlines UA927 · NYC→LHR</div>
-                    <div class="exp-trow-amount" style="flex:0 0 55px;text-align:right">$680</div>
-                    <div style="flex:0 0 65px;text-align:right"><span class="badge-approved">Approved</span></div>
-                  </div>
-                  <div class="exp-trow">
-                    <div style="font-size:.7rem;color:var(--text-light);flex:0 0 52px">Nov 12</div>
-                    <div class="exp-trow-name">Marriott Canary Wharf · 3 nights</div>
-                    <div class="exp-trow-amount" style="flex:0 0 55px;text-align:right">$567</div>
-                    <div style="flex:0 0 65px;text-align:right"><span class="badge-approved">Approved</span></div>
-                  </div>
-                  <div class="exp-trow">
-                    <div style="font-size:.7rem;color:var(--text-light);flex:0 0 52px">Nov 13</div>
-                    <div class="exp-trow-name">Client dinner · Nobu London</div>
-                    <div class="exp-trow-amount" style="flex:0 0 55px;text-align:right">$284</div>
-                    <div style="flex:0 0 65px;text-align:right"><span class="badge-pending">Pending</span></div>
-                  </div>
-                  <div class="exp-trow">
-                    <div style="font-size:.7rem;color:var(--text-light);flex:0 0 52px">Nov 14</div>
-                    <div class="exp-trow-name">Heathrow Express · Rail</div>
-                    <div class="exp-trow-amount" style="flex:0 0 55px;text-align:right">$38</div>
-                    <div style="flex:0 0 65px;text-align:right"><span class="badge-approved">Approved</span></div>
-                  </div>
-                  <div class="exp-trow">
-                    <div style="font-size:.7rem;color:var(--text-light);flex:0 0 52px">Nov 15</div>
-                    <div class="exp-trow-name">Delta DL402 · LHR→JFK return</div>
-                    <div class="exp-trow-amount" style="flex:0 0 55px;text-align:right">$620</div>
-                    <div style="flex:0 0 65px;text-align:right"><span class="badge-disputed">Flagged</span></div>
+                  <div class="exp-total">
+                    <span>Total this trip</span>
+                    <span>$2,189</span>
                   </div>
                 </div>
-                <div style="display:flex;justify-content:flex-end;align-items:center;gap:.5rem;padding:.55rem .6rem 0;border-top:1px solid var(--border)">
-                  <span style="font-size:.75rem;color:var(--text-muted)">Total this trip</span>
-                  <span style="font-size:.9rem;font-weight:800;color:var(--blue)">$2,189</span>
-                </div>
               </div>
-            </div>
 
-            <!-- SLIDE 5 · Team Tracking -->
-            <div class="c-slide" data-url="flyby.app / team">
-              <div class="c-aside">
-                <div class="m-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Home</div>
-                <div class="m-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>Trips</div>
-                <div class="m-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>Expenses</div>
-                <div class="m-nav-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8z"/></svg>Team</div>
-                <div class="m-nav-item" style="margin-top:auto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>Settings</div>
-              </div>
-              <div class="c-main">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.65rem">
-                  <span style="font-size:.72rem;font-weight:700;color:var(--text-light);text-transform:uppercase;letter-spacing:.06em">Team Status · 5 traveling</span>
-                  <span style="font-size:.68rem;color:var(--blue);font-weight:600">Live ●</span>
+              <!-- SLIDE 5 · Team Tracking -->
+              <div class="c-slide" data-url="flyby.app / team">
+                <div class="c-aside">
+                  <div class="m-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Home</div>
+                  <div class="m-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>Trips</div>
+                  <div class="m-nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>Expenses</div>
+                  <div class="m-nav-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8z"/></svg>Team</div>
+                  <div class="m-nav-item m-nav-bottom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-9M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>Settings</div>
                 </div>
-                <div class="team-slide-rows">
-                  <div class="ts-row"><div class="ts-av" style="background:#4A90D9">JC</div><div class="ts-info"><div class="ts-name">Julia Chen</div><div class="ts-route">SF → London · BA178 · Lands 14:20</div></div><span class="ts-status ts-inflight">In flight</span></div>
-                  <div class="ts-row"><div class="ts-av" style="background:#1A3A5C">MT</div><div class="ts-info"><div class="ts-name">Mark Thompson</div><div class="ts-route">Marriott Tokyo · Checkout Nov 14</div></div><span class="ts-status ts-hotel">At hotel</span></div>
-                  <div class="ts-row"><div class="ts-av" style="background:#2d6bb5">PP</div><div class="ts-info"><div class="ts-name">Priya Patel</div><div class="ts-route">JFK · Departing in 4h · Gate B22</div></div><span class="ts-status ts-upcoming">Upcoming</span></div>
-                  <div class="ts-row"><div class="ts-av" style="background:#16a34a">AK</div><div class="ts-info"><div class="ts-name">Alex Kim</div><div class="ts-route">NYC → Paris · Departs Nov 16</div></div><span class="ts-status ts-upcoming">Upcoming</span></div>
-                  <div class="ts-row"><div class="ts-av" style="background:#8AA0B8">SR</div><div class="ts-info"><div class="ts-name">Sam Rivera</div><div class="ts-route">Working remotely · Austin, TX</div></div><span class="ts-status ts-remote">Remote</span></div>
+                <div class="c-main">
+                  <div class="ts-head">
+                    <span class="ts-head-title">Team status <span>· 5 traveling</span></span>
+                    <span class="ts-live"><span class="pulse-dot"></span>Live</span>
+                  </div>
+                  <div class="team-slide-rows">
+                    <div class="ts-row"><div class="ts-av" style="background:#3570E3">JC</div><div class="ts-info"><div class="ts-name">Julia Chen</div><div class="ts-route">SF → London · BA178 · Lands 14:20</div></div><span class="ts-status ts-inflight">In flight</span></div>
+                    <div class="ts-row"><div class="ts-av" style="background:#0A1222">MT</div><div class="ts-info"><div class="ts-name">Mark Thompson</div><div class="ts-route">Marriott Tokyo · Checkout Nov 14</div></div><span class="ts-status ts-hotel">At hotel</span></div>
+                    <div class="ts-row"><div class="ts-av" style="background:#7C9BE3">PP</div><div class="ts-info"><div class="ts-name">Priya Patel</div><div class="ts-route">JFK · Departing in 4h · Gate B22</div></div><span class="ts-status ts-upcoming">Upcoming</span></div>
+                    <div class="ts-row"><div class="ts-av" style="background:#0E7A57">AK</div><div class="ts-info"><div class="ts-name">Alex Kim</div><div class="ts-route">NYC → Paris · Departs Nov 16</div></div><span class="ts-status ts-upcoming">Upcoming</span></div>
+                    <div class="ts-row"><div class="ts-av" style="background:#8A95A8">SR</div><div class="ts-info"><div class="ts-name">Sam Rivera</div><div class="ts-route">Working remotely · Austin, TX</div></div><span class="ts-status ts-remote">Remote</span></div>
+                  </div>
                 </div>
               </div>
-            </div>
 
-          </div><!-- /carousel-track -->
-        </div><!-- /carousel-container -->
+            </div><!-- /carousel-track -->
+          </div><!-- /carousel-container -->
+        </div><!-- /mockup-window -->
       </div><!-- /hero-mockup-card -->
 
       <!-- Dot indicators -->
@@ -821,127 +840,139 @@ section{position:relative}
       </div>
     </div><!-- /carousel-outer -->
   </div>
-
-  <div class="scroll-hint">
-    <div class="scroll-line"></div>
-    <span>Scroll</span>
-  </div>
 </section>
 
 
 <!-- ══════════════════════════════ FEATURES ══════════════════════════════ -->
 <section class="features" id="features">
-  <div class="features-header">
-    <div class="label blue-accent reveal" style="margin-bottom:.75rem">Platform</div>
-    <h2 class="h-section reveal d1">Everything you need<br/>to travel smarter.</h2>
-    <p class="body-md reveal d2" style="margin-top:1rem">One platform that handles booking, tracking, and expense management — so your team can focus on the work.</p>
-  </div>
   <div class="container">
+    <div class="sec-head">
+      <div class="eyebrow reveal">Platform</div>
+      <h2 class="h-section reveal d1">Everything you need<br/>to travel <span class="serif accent">smarter.</span></h2>
+      <p class="lead reveal d2">One platform that handles booking, tracking, and expense management, so your team can focus on the work.</p>
+    </div>
     <div class="features-grid">
 
       <!-- Trip Booking -->
-      <div class="feat-card reveal">
-        <div class="feat-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>
-        </div>
+      <div class="feat-card span-7 reveal">
         <div class="feat-text">
+          <div class="feat-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+          </div>
           <h3 class="h-card">Trip Booking</h3>
           <p>Flyby automatically books flights and hotels that stay within company policy. Dates shift? Flyby rebooks everything on its own, with no action needed from you.</p>
         </div>
-        <div class="feat-mockup">
-          <div class="feat-mock-row">
-            <div class="feat-mock-dot" style="background:#4A90D9"></div>
-            <div class="feat-mock-text">NYC → London, Nov 12</div>
-            <div class="feat-mock-val">$680</div>
-          </div>
-          <div class="feat-mock-row">
-            <div class="feat-mock-dot" style="background:#22c55e"></div>
-            <div class="feat-mock-text">Marriott City, 3 nights</div>
-            <div class="feat-mock-val">$520</div>
-          </div>
-          <div class="feat-mock-row">
-            <div class="feat-mock-dot" style="background:#f59e0b"></div>
-            <div class="feat-mock-text">Airport transfer</div>
-            <div class="feat-mock-val">$48</div>
+        <div class="feat-visual">
+          <div class="feat-mockup">
+            <div class="fm-head">
+              <span class="fm-title">London trip</span>
+              <span class="fm-pill">Within policy</span>
+            </div>
+            <div class="feat-mock-row">
+              <div class="fm-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg></div>
+              <div class="feat-mock-text">NYC → London, Nov 12</div>
+              <div class="feat-mock-val">$680</div>
+            </div>
+            <div class="feat-mock-row">
+              <div class="fm-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20v-8a2 2 0 012-2h16a2 2 0 012 2v8M4 10V6a2 2 0 012-2h12a2 2 0 012 2v4M12 4v6M2 18h20"/></svg></div>
+              <div class="feat-mock-text">Marriott City, 3 nights</div>
+              <div class="feat-mock-val">$520</div>
+            </div>
+            <div class="feat-mock-row">
+              <div class="fm-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 002 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg></div>
+              <div class="feat-mock-text">Airport transfer</div>
+              <div class="feat-mock-val">$48</div>
+            </div>
+            <div class="fm-foot"><span>Trip total</span><span>$1,248</span></div>
           </div>
         </div>
       </div>
 
       <!-- Expense Tracking -->
-      <div class="feat-card reveal d1">
-        <div class="feat-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
-        </div>
+      <div class="feat-card span-5 reveal d1">
         <div class="feat-text">
+          <div class="feat-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+          </div>
           <h3 class="h-card">Expense Tracking</h3>
           <p>Zero expense reports. Flyby captures every receipt, categorizes spending, and reconciles accounts automatically after each trip.</p>
         </div>
-        <div class="feat-mockup">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem">
-            <span style="font-size:.72rem;font-weight:700;color:var(--text-light)">SPEND BY CATEGORY</span>
-            <span style="font-size:.7rem;color:var(--blue)">This month</span>
-          </div>
-          <div class="feat-mock-row">
-            <div class="feat-mock-text">Flights</div>
-            <div class="feat-mock-bar-wrap"><div class="feat-mock-bar" style="width:78%"></div></div>
-            <div class="feat-mock-val">$34.8k</div>
-          </div>
-          <div class="feat-mock-row">
-            <div class="feat-mock-text">Hotels</div>
-            <div class="feat-mock-bar-wrap"><div class="feat-mock-bar" style="width:52%"></div></div>
-            <div class="feat-mock-val">$23.1k</div>
-          </div>
-          <div class="feat-mock-row">
-            <div class="feat-mock-text">Meals</div>
-            <div class="feat-mock-bar-wrap"><div class="feat-mock-bar" style="width:24%"></div></div>
-            <div class="feat-mock-val">$8.4k</div>
+        <div class="feat-visual">
+          <div class="feat-mockup">
+            <div class="fm-head">
+              <span class="fm-sub">Spend by category</span>
+              <span class="fm-link">This month</span>
+            </div>
+            <div class="feat-mock-row">
+              <div class="feat-mock-text fm-label">Flights</div>
+              <div class="feat-mock-bar-wrap"><div class="feat-mock-bar" style="width:78%"></div></div>
+              <div class="feat-mock-val">$34.8k</div>
+            </div>
+            <div class="feat-mock-row">
+              <div class="feat-mock-text fm-label">Hotels</div>
+              <div class="feat-mock-bar-wrap"><div class="feat-mock-bar" style="width:52%"></div></div>
+              <div class="feat-mock-val">$23.1k</div>
+            </div>
+            <div class="feat-mock-row">
+              <div class="feat-mock-text fm-label">Meals</div>
+              <div class="feat-mock-bar-wrap"><div class="feat-mock-bar" style="width:24%"></div></div>
+              <div class="feat-mock-val">$8.4k</div>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- AI Insights -->
-      <div class="feat-card reveal d2">
-        <div class="feat-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2a10 10 0 110 20A10 10 0 0112 2z"/><path d="M12 6v6l4 2"/></svg>
-        </div>
+      <div class="feat-card span-5 reveal d2">
         <div class="feat-text">
+          <div class="feat-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.8L20 10l-6.1 1.2L12 17l-1.9-5.8L4 10l6.1-1.2zM19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg>
+          </div>
           <h3 class="h-card">AI Insights</h3>
-          <p>Flyby's AI flags anomalies, detects policy violations, and predicts spend trends — before you even think to look.</p>
+          <p>Flyby's AI flags anomalies, detects policy violations, and predicts spend trends before you even think to look.</p>
         </div>
-        <div class="feat-mockup">
-          <div class="feat-ai-rows">
-            <div class="feat-ai-row">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 9v4M12 17h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
-              3 bookings above policy limit
-            </div>
-            <div class="feat-ai-row">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-              Spend trending +18% in Q4
-            </div>
-            <div class="feat-ai-row">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-              SF→NYC route 22% cheaper via JFK
+        <div class="feat-visual">
+          <div class="feat-mockup">
+            <div class="feat-ai-rows">
+              <div class="feat-ai-row">
+                <span class="feat-ai-ico ic-amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4M12 17h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg></span>
+                3 bookings above policy limit
+              </div>
+              <div class="feat-ai-row">
+                <span class="feat-ai-ico ic-blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></span>
+                Spend trending +18% in Q4
+              </div>
+              <div class="feat-ai-row">
+                <span class="feat-ai-ico ic-green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+                SF→NYC route 22% cheaper via JFK
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       <!-- Slack Reports -->
-      <div class="feat-card reveal d3">
-        <div class="feat-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-        </div>
+      <div class="feat-card span-7 reveal d3">
         <div class="feat-text">
+          <div class="feat-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          </div>
           <h3 class="h-card">Slack &amp; Teams Reports</h3>
           <p>Get daily travel summaries, spend alerts, and booking confirmations right inside Slack or Microsoft Teams.</p>
         </div>
-        <div class="feat-mockup">
-          <div style="background:var(--gray-bg);border-radius:8px;padding:.7rem .85rem">
-            <div style="font-size:.68rem;font-weight:700;color:var(--text-light);margin-bottom:.5rem">🤖 flyby-bot · Today at 9:04 AM</div>
-            <div style="font-size:.77rem;color:var(--text);line-height:1.5">Daily travel digest: <strong>7 active trips</strong> across 4 countries. Julia Chen lands in London at 2:20 PM. <strong>$0 pending expenses</strong> — all reconciled. ✅</div>
-            <div style="margin-top:.5rem;display:flex;gap:.4rem">
-              <div style="background:#fff;border:1px solid var(--border);border-radius:6px;padding:.25rem .6rem;font-size:.68rem;color:var(--blue);font-weight:600">View trips</div>
-              <div style="background:#fff;border:1px solid var(--border);border-radius:6px;padding:.25rem .6rem;font-size:.68rem;color:var(--text-muted);font-weight:600">Expenses →</div>
+        <div class="feat-visual">
+          <div class="feat-mockup">
+            <div class="sm-channel"># travel-updates <span>· 12 members</span></div>
+            <div class="sm-msg">
+              <div class="sm-av"><img src="flybylogo.png" alt=""/></div>
+              <div>
+                <div class="sm-name">flyby-bot <span class="sm-app">APP</span><span class="sm-time">9:04 AM</span></div>
+                <div class="sm-text">Daily travel digest: <strong>7 active trips</strong> across 4 countries. Julia Chen lands in London at 2:20 PM. <strong>$0 pending expenses</strong>, all reconciled.</div>
+                <div class="sm-actions">
+                  <span class="sm-btn primary">View trips</span>
+                  <span class="sm-btn">Expenses →</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -953,19 +984,22 @@ section{position:relative}
 
 <!-- ══════════════════════════════ STATS ══════════════════════════════ -->
 <section class="stats">
-  <div class="container stats-inner">
+  <div class="container">
     <div class="stats-grid">
       <div class="stat-cell reveal">
-        <div class="stat-num" data-count="1">0</div>
+        <div class="stat-k">Booking</div>
+        <div class="stat-figure"><span class="stat-num" data-count="1">0</span></div>
         <div class="stat-desc">message to book a complete trip</div>
       </div>
       <div class="stat-cell reveal d1">
-        <div class="stat-num" data-count="0">—</div>
+        <div class="stat-k">Expenses</div>
+        <div class="stat-figure"><span class="stat-num" data-count="0">0</span></div>
         <div class="stat-desc">expense reports to fill out, ever</div>
       </div>
       <div class="stat-cell reveal d2">
-        <div class="stat-num" data-count="100">0</div>
-        <div class="stat-desc" style="position:relative">% automatic approvals<span style="display:block;font-size:.75rem;color:var(--blue);margin-top:.3rem">within policy</span></div>
+        <div class="stat-k">Approvals</div>
+        <div class="stat-figure"><span class="stat-num" data-count="100">0</span><span class="stat-unit">%</span></div>
+        <div class="stat-desc">automatic approvals<span class="stat-note">Within policy</span></div>
       </div>
     </div>
   </div>
@@ -973,51 +1007,69 @@ section{position:relative}
 
 <!-- ══════════════════════════════ TEAM CARDS ══════════════════════════════ -->
 <section class="teams" id="teams">
-  <div class="teams-header">
-    <div class="label blue-accent reveal" style="margin-bottom:.75rem">Built for every team</div>
-    <h2 class="h-section reveal d1">Built for every team<br/>that travels.</h2>
-    <p class="body-md reveal d2" style="margin-top:1rem">Whether you're closing deals or consulting across borders, Flyby adapts to how your team actually works.</p>
-  </div>
   <div class="container">
+    <div class="sec-head">
+      <div class="eyebrow reveal">Use cases</div>
+      <h2 class="h-section reveal d1">Built for every team<br/>that <span class="serif accent">travels.</span></h2>
+      <p class="lead reveal d2">Whether you're closing deals or consulting across borders, Flyby adapts to how your team actually works.</p>
+    </div>
     <div class="teams-grid">
       <div class="team-card reveal">
         <div class="tc-body">
-          <div class="tc-badge">Sales</div>
+          <div class="tc-head">
+            <div class="tc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg></div>
+            <div class="tc-badge">Sales</div>
+          </div>
           <h3>Close deals on the road</h3>
           <p>Book client visits in seconds. Never miss a meeting because of travel chaos.</p>
         </div>
       </div>
       <div class="team-card reveal d1">
         <div class="tc-body">
-          <div class="tc-badge">Law Firms</div>
+          <div class="tc-head">
+            <div class="tc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 16l3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1zM2 16l3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1zM7 21h10M12 3v18M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg></div>
+            <div class="tc-badge">Law Firms</div>
+          </div>
           <h3>Compliant travel at scale</h3>
           <p>Client billing codes, per-diem tracking, and iron-clad policy enforcement.</p>
         </div>
       </div>
       <div class="team-card reveal d2">
         <div class="tc-body">
-          <div class="tc-badge">Consulting</div>
+          <div class="tc-head">
+            <div class="tc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg></div>
+            <div class="tc-badge">Consulting</div>
+          </div>
           <h3>Multi-city projects, simplified</h3>
           <p>Manage complex itineraries for entire project teams from one dashboard.</p>
         </div>
       </div>
       <div class="team-card reveal">
         <div class="tc-body">
-          <div class="tc-badge">Startups</div>
+          <div class="tc-head">
+            <div class="tc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+            <div class="tc-badge">Startups</div>
+          </div>
           <h3>Move fast, spend smart</h3>
           <p>Real-time spend visibility and budget control built for lean, fast-moving teams.</p>
         </div>
       </div>
       <div class="team-card reveal d1">
         <div class="tc-body">
-          <div class="tc-badge">Finance</div>
+          <div class="tc-head">
+            <div class="tc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9 15l2 2 4-4"/></svg></div>
+            <div class="tc-badge">Finance</div>
+          </div>
           <h3>Audit-ready by default</h3>
-          <p>Every receipt, every booking, every approval — logged and exportable instantly.</p>
+          <p>Every receipt, every booking, every approval, logged and exportable instantly.</p>
         </div>
       </div>
       <div class="team-card reveal d2">
         <div class="tc-body">
-          <div class="tc-badge">Remote Teams</div>
+          <div class="tc-head">
+            <div class="tc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>
+            <div class="tc-badge">Remote Teams</div>
+          </div>
           <h3>Bring the team together</h3>
           <p>Coordinate off-sites and team retreats for distributed teams in any timezone.</p>
         </div>
@@ -1030,62 +1082,64 @@ section{position:relative}
 
 <!-- ══════════════════════════════ HOW IT WORKS ══════════════════════════════ -->
 <section class="how" id="how">
-  <div class="how-header">
-    <div class="label blue-accent reveal" style="margin-bottom:.75rem">How it works</div>
-    <h2 class="h-section reveal d1">From request to<br/>boarding pass.</h2>
-    <p class="body-md reveal d2" style="margin-top:1rem">Three steps. No back-and-forth. No spreadsheets.</p>
-  </div>
   <div class="container">
+    <div class="sec-head">
+      <div class="eyebrow reveal">How it works</div>
+      <h2 class="h-section reveal d1">From request to<br/><span class="serif accent">boarding pass.</span></h2>
+      <p class="lead reveal d2">Three steps. No back-and-forth. No spreadsheets.</p>
+    </div>
     <div class="how-steps">
 
       <!-- Step 1 -->
       <div class="how-step">
         <div class="how-step-text reveal-left">
-          <div class="step-num">Step 01</div>
+          <div class="step-num"><span class="step-idx">01</span>Step one</div>
           <h3>Book with one message.</h3>
           <p>Tell Flyby where you're going and when. It searches flights, hotels, and transfers, filtered by your company policy, and presents the best options instantly.</p>
           <div class="how-bullets">
             <div class="how-bullet">
-              <div class="how-bullet-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div class="how-bullet-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
               <span>Natural language input, with no forms to fill</span>
             </div>
             <div class="how-bullet">
-              <div class="how-bullet-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div class="how-bullet-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
               <span>Policy-compliant options only</span>
             </div>
             <div class="how-bullet">
-              <div class="how-bullet-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div class="how-bullet-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
               <span>One-click booking for the whole itinerary</span>
             </div>
             <div class="how-bullet">
-              <div class="how-bullet-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div class="how-bullet-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
               <span>Syncs with your calendar to book travel</span>
             </div>
             <div class="how-bullet">
-              <div class="how-bullet-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div class="how-bullet-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
               <span>Automatically books everything for you</span>
             </div>
           </div>
         </div>
-        <div class="how-mockup reveal-right">
-          <div class="how-mockup-bar">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-            Flyby AI · Trip Planner
-          </div>
-          <div class="chat-bubbles">
-            <div class="chat-row right">
-              <div class="chat-av" style="background:#4A90D9">ME</div>
-              <div class="chat-bubble user">Book flights and hotel for NYC to London, Nov 12–15 for 2 people, under $3k total</div>
+        <div class="how-visual reveal-right">
+          <div class="how-mockup">
+            <div class="how-mockup-bar">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+              Flyby AI · Trip Planner
             </div>
-            <div class="chat-row">
-              <div class="chat-av" style="background:#1A3A5C">AI</div>
-              <div style="flex:1">
-                <div class="chat-bubble ai">Found the best options within your policy. Here's what I recommend:</div>
-                <div class="chat-result">
-                  <div class="chat-result-title">✈ NYC → London, Nov 12</div>
-                  <div class="chat-result-row"><span>United 927 · 7h 10m</span><span>$680/pp</span></div>
-                  <div class="chat-result-row"><span>Marriott Canary Wharf · 3 nights</span><span>$189/night</span></div>
-                  <div class="chat-result-row"><span>Total for 2 travelers</span><span>$2,927 ✓</span></div>
+            <div class="chat-bubbles">
+              <div class="chat-row right">
+                <div class="chat-av" style="background:#3570E3">ME</div>
+                <div class="chat-bubble user">Book flights and hotel for NYC to London, <span style="white-space:nowrap">Nov 12–15</span> for 2 people, under $3k total</div>
+              </div>
+              <div class="chat-row">
+                <div class="chat-av bot-av"><img src="flybylogo.png" alt="" style="width:16px;height:16px;object-fit:contain"/></div>
+                <div style="flex:1;min-width:0">
+                  <div class="chat-bubble ai">Found the best options within your policy. Here's what I recommend:</div>
+                  <div class="chat-result">
+                    <div class="chat-result-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>NYC → London, Nov 12</div>
+                    <div class="chat-result-row"><span>United 927 · 7h 10m</span><span>$680/pp</span></div>
+                    <div class="chat-result-row"><span>Marriott Canary Wharf · 3 nights</span><span>$189/night</span></div>
+                    <div class="chat-result-row"><span>Total for 2 travelers</span><span>$2,927 ✓</span></div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1096,56 +1150,58 @@ section{position:relative}
       <!-- Step 2 -->
       <div class="how-step reverse">
         <div class="how-step-text reveal-right">
-          <div class="step-num">Step 02</div>
+          <div class="step-num"><span class="step-idx">02</span>Step two</div>
           <h3>Flyby manages everything in real time.</h3>
           <p>Once booked, Flyby tracks every traveler live, including gate changes, delays, and hotel check-ins. Your team always knows what's happening, and so do you.</p>
           <div class="how-bullets">
             <div class="how-bullet">
-              <div class="how-bullet-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div class="how-bullet-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
               <span>Live flight and hotel status</span>
             </div>
             <div class="how-bullet">
-              <div class="how-bullet-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div class="how-bullet-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
               <span>Instant rebooking on disruptions</span>
             </div>
             <div class="how-bullet">
-              <div class="how-bullet-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div class="how-bullet-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
               <span>Slack &amp; email alerts for managers</span>
             </div>
           </div>
         </div>
-        <div class="how-mockup reveal-left">
-          <div class="how-mockup-bar">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            Live Tracker · 3 travelers
-          </div>
-          <div class="live-track">
-            <div class="ltrack-row">
-              <div class="ltrack-av" style="background:#4A90D9">JC</div>
-              <div class="ltrack-info">
-                <div class="ltrack-name">Julia Chen <span style="font-size:.65rem;color:#4A90D9;font-weight:600;background:var(--blue-sky);padding:.1rem .4rem;border-radius:4px;margin-left:.3rem">LIVE</span></div>
-                <div class="ltrack-detail">UA927 · Over Atlantic · Lands 14:20 LHR</div>
-                <div class="ltrack-progress"><div class="ltrack-fill" style="width:55%"></div></div>
-              </div>
-              <div class="trip-chip chip-active">In flight</div>
+        <div class="how-visual reveal-left">
+          <div class="how-mockup">
+            <div class="how-mockup-bar">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              Live Tracker · 3 travelers
             </div>
-            <div class="ltrack-row">
-              <div class="ltrack-av" style="background:#1A3A5C">MT</div>
-              <div class="ltrack-info">
-                <div class="ltrack-name">Mark Thompson</div>
-                <div class="ltrack-detail">Marriott Tokyo · Checked in · Checkout Nov 14</div>
-                <div class="ltrack-progress"><div class="ltrack-fill" style="width:80%"></div></div>
+            <div class="live-track">
+              <div class="ltrack-row">
+                <div class="ltrack-av" style="background:#3570E3">JC</div>
+                <div class="ltrack-info">
+                  <div class="ltrack-name">Julia Chen <span class="live-tag"><span class="pulse-dot"></span>LIVE</span></div>
+                  <div class="ltrack-detail">UA927 · Over Atlantic · Lands 14:20 LHR</div>
+                  <div class="ltrack-progress"><div class="ltrack-fill" style="width:55%"></div></div>
+                </div>
+                <div class="trip-chip chip-active">In flight</div>
               </div>
-              <div class="trip-chip chip-done">At hotel</div>
-            </div>
-            <div class="ltrack-row">
-              <div class="ltrack-av" style="background:#2d6bb5">PP</div>
-              <div class="ltrack-info">
-                <div class="ltrack-name">Priya Patel</div>
-                <div class="ltrack-detail">JFK · Departing in 4h 10m · Gate B22</div>
-                <div class="ltrack-progress"><div class="ltrack-fill" style="width:15%"></div></div>
+              <div class="ltrack-row">
+                <div class="ltrack-av" style="background:#0A1222">MT</div>
+                <div class="ltrack-info">
+                  <div class="ltrack-name">Mark Thompson</div>
+                  <div class="ltrack-detail">Marriott Tokyo · Checked in · Checkout Nov 14</div>
+                  <div class="ltrack-progress"><div class="ltrack-fill" style="width:80%"></div></div>
+                </div>
+                <div class="trip-chip chip-done">At hotel</div>
               </div>
-              <div class="trip-chip chip-soon">Upcoming</div>
+              <div class="ltrack-row">
+                <div class="ltrack-av" style="background:#7C9BE3">PP</div>
+                <div class="ltrack-info">
+                  <div class="ltrack-name">Priya Patel</div>
+                  <div class="ltrack-detail">JFK · Departing in 4h 10m · Gate B22</div>
+                  <div class="ltrack-progress"><div class="ltrack-fill" style="width:15%"></div></div>
+                </div>
+                <div class="trip-chip chip-soon">Upcoming</div>
+              </div>
             </div>
           </div>
         </div>
@@ -1154,57 +1210,59 @@ section{position:relative}
       <!-- Step 3 -->
       <div class="how-step">
         <div class="how-step-text reveal-left">
-          <div class="step-num">Step 03</div>
+          <div class="step-num"><span class="step-idx">03</span>Step three</div>
           <h3>Expense report sent automatically.</h3>
           <p>When the trip ends, Flyby compiles every receipt, categorizes every spend, and sends a complete expense report, with no action required from your travelers.</p>
           <div class="how-bullets">
             <div class="how-bullet">
-              <div class="how-bullet-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div class="how-bullet-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
               <span>Auto-captured receipts and invoices</span>
             </div>
             <div class="how-bullet">
-              <div class="how-bullet-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div class="how-bullet-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
               <span>Syncs directly to QuickBooks &amp; Xero</span>
             </div>
             <div class="how-bullet">
-              <div class="how-bullet-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div class="how-bullet-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
               <span>Reimbursement in 24 hours</span>
             </div>
           </div>
         </div>
-        <div class="how-mockup reveal-right">
-          <div class="how-mockup-bar">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-            Expense Report · Auto-generated
-          </div>
-          <div class="expense-rows">
-            <div class="exp-row">
-              <div class="exp-icon" style="background:rgba(74,144,217,0.1)">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4A90D9" stroke-width="2" stroke-linecap="round"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>
-              </div>
-              <div class="exp-text"><div class="exp-name">United Airlines · UA927</div><div class="exp-sub">Nov 12 · Business travel</div></div>
-              <div class="exp-amount">$680.00</div>
-              <div class="exp-check" style="background:rgba(34,197,94,0.1)"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="how-visual reveal-right">
+          <div class="how-mockup">
+            <div class="how-mockup-bar">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Expense Report · Auto-generated
             </div>
-            <div class="exp-row">
-              <div class="exp-icon" style="background:rgba(26,58,92,0.08)">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1A3A5C" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+            <div class="expense-rows">
+              <div class="exp-row">
+                <div class="exp-icon" style="background:var(--blue-50)">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3570E3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+                </div>
+                <div class="exp-text"><div class="exp-name">United Airlines · UA927</div><div class="exp-sub">Nov 12 · Business travel</div></div>
+                <div class="exp-amount">$680.00</div>
+                <div class="exp-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
               </div>
-              <div class="exp-text"><div class="exp-name">Marriott Canary Wharf</div><div class="exp-sub">Nov 12–15 · 3 nights</div></div>
-              <div class="exp-amount">$567.00</div>
-              <div class="exp-check" style="background:rgba(34,197,94,0.1)"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-            </div>
-            <div class="exp-row">
-              <div class="exp-icon" style="background:rgba(249,115,22,0.1)">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2" stroke-linecap="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <div class="exp-row">
+                <div class="exp-icon" style="background:var(--bg-soft)">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#28354B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+                </div>
+                <div class="exp-text"><div class="exp-name">Marriott Canary Wharf</div><div class="exp-sub">Nov 12–15 · 3 nights</div></div>
+                <div class="exp-amount">$567.00</div>
+                <div class="exp-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
               </div>
-              <div class="exp-text"><div class="exp-name">Client dinner · Nobu London</div><div class="exp-sub">Nov 13 · Meals &amp; entertainment</div></div>
-              <div class="exp-amount">$284.00</div>
-              <div class="exp-check" style="background:rgba(34,197,94,0.1)"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="3" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-            </div>
-            <div style="display:flex;justify-content:space-between;align-items:center;padding:.6rem .7rem 0;border-top:1px solid var(--border);margin-top:.2rem">
-              <span style="font-size:.78rem;font-weight:700;color:var(--text)">Total</span>
-              <span style="font-size:.95rem;font-weight:800;color:var(--blue)">$1,531.00</span>
+              <div class="exp-row">
+                <div class="exp-icon" style="background:var(--amber-bg)">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9A5A00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                </div>
+                <div class="exp-text"><div class="exp-name">Client dinner · Nobu London</div><div class="exp-sub">Nov 13 · Meals &amp; entertainment</div></div>
+                <div class="exp-amount">$284.00</div>
+                <div class="exp-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              </div>
+              <div class="exp-sum">
+                <span>Total</span>
+                <span>$1,531.00</span>
+              </div>
             </div>
           </div>
         </div>
@@ -1219,12 +1277,12 @@ section{position:relative}
   <div class="container">
     <div class="ai-inner">
       <div class="ai-text reveal-left">
-        <div class="label" style="color:#7aa8d8;margin-bottom:1.25rem">AI-powered</div>
-        <h2>Your AI travel assistant<br/>never sleeps.</h2>
+        <div class="eyebrow eyebrow-dark">AI-powered</div>
+        <h2 class="h-section">Your AI travel assistant<br/><span class="serif accent-light">never sleeps.</span></h2>
         <div class="ai-bullets">
           <div class="ai-bullet">
             <div class="ai-bullet-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0zM12 9v4M12 17h.01"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0zM12 9v4M12 17h.01"/></svg>
             </div>
             <div class="ai-bullet-text">
               <strong>Detects anomalies automatically</strong>
@@ -1233,16 +1291,16 @@ section{position:relative}
           </div>
           <div class="ai-bullet">
             <div class="ai-bullet-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
             </div>
             <div class="ai-bullet-text">
               <strong>Flags policy violations in real time</strong>
-              <span>Your travel policy enforced automatically — no manual approvals, no exceptions slipping through.</span>
+              <span>Your travel policy, enforced automatically. No manual approvals, no exceptions slipping through.</span>
             </div>
           </div>
           <div class="ai-bullet">
             <div class="ai-bullet-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
             </div>
             <div class="ai-bullet-text">
               <strong>Predicts spending trends</strong>
@@ -1254,11 +1312,11 @@ section{position:relative}
       <div class="ai-card reveal-right">
         <div class="ai-card-header">
           <div class="ai-card-title">AI Insights</div>
-          <div class="ai-card-badge">Live</div>
+          <div class="ai-card-badge"><span class="pulse-dot"></span>Live</div>
         </div>
         <div class="ai-insight-row">
           <div class="ai-insight-icon warn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0zM12 9v4M12 17h.01"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0zM12 9v4M12 17h.01"/></svg>
           </div>
           <div class="ai-insight-text">
             <strong>Anomaly detected</strong>
@@ -1267,7 +1325,7 @@ section{position:relative}
         </div>
         <div class="ai-insight-row">
           <div class="ai-insight-icon flag">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1zM4 22v-7"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1zM4 22v-7"/></svg>
           </div>
           <div class="ai-insight-text">
             <strong>Policy flag</strong>
@@ -1276,16 +1334,19 @@ section{position:relative}
         </div>
         <div class="ai-insight-row">
           <div class="ai-insight-icon trend">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
           </div>
           <div class="ai-insight-text">
             <strong>Spend prediction</strong>
-            <span>Q4 travel spend projected at $184k — 18% above Q3. Book earlier to save ~$22k.</span>
+            <span>Q4 travel spend projected at $184k, 18% above Q3. Book earlier to save ~$22k.</span>
           </div>
         </div>
         <div class="ai-score">
-          <div class="ai-score-label">Travel Health Score</div>
-          <div class="ai-score-val">87 / 100 ✓</div>
+          <div class="ai-score-top">
+            <div class="ai-score-label">Travel Health Score</div>
+            <div class="ai-score-val">87<span>/ 100</span></div>
+          </div>
+          <div class="ai-score-bar"><span style="width:87%"></span></div>
         </div>
       </div>
     </div>
@@ -1294,24 +1355,29 @@ section{position:relative}
 
 <!-- ══════════════════════════════ WAITLIST ══════════════════════════════ -->
 <section class="waitlist" id="waitlist">
-  <div class="waitlist-bg"></div>
-  <div class="waitlist-content">
-    <div class="waitlist-eyebrow reveal">Early access · Limited spots</div>
-    <h2 class="reveal d1">Fly smarter,<br/>starting now.</h2>
-    <p class="waitlist-sub reveal d2">We're early. Your feedback shapes what we build next. Join the waitlist and be first to fly.</p>
-    <div class="waitlist-form reveal d3">
-      <button type="button" class="btn btn-blue btn-lg" data-tally-open="zxdvlE" data-tally-layout="modal" data-tally-width="540" data-tally-overlay="1" data-tally-emoji-text="👋" data-tally-emoji-animation="wave">Join Waitlist →</button>
+  <div class="container">
+    <div class="waitlist-panel">
+      <div class="waitlist-bg"></div>
+      <div class="waitlist-content">
+        <div class="waitlist-logo reveal"><img src="flybylogo.png" alt=""/></div>
+        <div class="eyebrow reveal">Early access · Limited spots</div>
+        <h2 class="reveal d1">Fly smarter,<br/><span class="serif accent">starting now.</span></h2>
+        <p class="waitlist-sub reveal d2">We're early. Your feedback shapes what we build next. Join the waitlist and be first to fly.</p>
+        <div class="waitlist-form reveal d3">
+          <button type="button" class="btn btn-blue btn-lg" data-tally-open="zxdvlE" data-tally-layout="modal" data-tally-width="540" data-tally-overlay="1" data-tally-emoji-text="👋" data-tally-emoji-animation="wave">Join Waitlist<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ══════════════════════════════ FOOTER ══════════════════════════════ -->
 <footer class="footer">
-  <div class="footer-inner">
+  <div class="container">
     <div class="footer-top">
       <div class="footer-brand">
         <div class="logo-mark">
-          <img src="flybylogo.png" alt="Flyby AI logo" width="30" height="30" style="object-fit:contain"/>
+          <img src="flybylogo.png" alt="Flyby AI logo" width="26" height="26"/>
           <span>flyby AI</span>
         </div>
         <p>AI-powered corporate travel and expense management. Plan trips in seconds, not hours.</p>
@@ -1352,6 +1418,7 @@ section{position:relative}
       <span>© 2026 Flyby AI, Inc. All rights reserved.</span>
     </div>
   </div>
+  <div class="footer-wordmark" aria-hidden="true">flyby</div>
 </footer>
 
 <script>
@@ -1377,7 +1444,7 @@ mobileNav.querySelectorAll('a').forEach(a => {
   });
 });
 
-// ── Hero canvas — soft animated sky gradient
+// ── Hero canvas: soft animated sky gradient
 (function() {
   const canvas = document.getElementById('heroCanvas');
   const ctx = canvas.getContext('2d');
@@ -1392,9 +1459,9 @@ mobileNav.querySelectorAll('a').forEach(a => {
     ctx.clearRect(0, 0, W, H);
     // Gentle drifting blobs
     const blobs = [
-      { x: 0.3 + 0.12 * Math.sin(t * 0.4), y: 0.35 + 0.08 * Math.cos(t * 0.3), r: 0.45, c: 'rgba(74,144,217,0.07)' },
-      { x: 0.7 + 0.1 * Math.cos(t * 0.5), y: 0.5 + 0.1 * Math.sin(t * 0.4), r: 0.38, c: 'rgba(74,144,217,0.05)' },
-      { x: 0.5 + 0.08 * Math.sin(t * 0.6), y: 0.2 + 0.06 * Math.cos(t * 0.5), r: 0.3, c: 'rgba(168,210,240,0.08)' },
+      { x: 0.3 + 0.12 * Math.sin(t * 0.4), y: 0.35 + 0.08 * Math.cos(t * 0.3), r: 0.45, c: 'rgba(53,112,227,0.07)' },
+      { x: 0.7 + 0.1 * Math.cos(t * 0.5), y: 0.5 + 0.1 * Math.sin(t * 0.4), r: 0.38, c: 'rgba(124,155,227,0.07)' },
+      { x: 0.5 + 0.08 * Math.sin(t * 0.6), y: 0.2 + 0.06 * Math.cos(t * 0.5), r: 0.3, c: 'rgba(169,201,234,0.10)' },
     ];
     blobs.forEach(b => {
       const grd = ctx.createRadialGradient(b.x * W, b.y * H, 0, b.x * W, b.y * H, b.r * W);
@@ -1417,7 +1484,7 @@ mobileNav.querySelectorAll('a').forEach(a => {
   resize(); loop();
 })();
 
-// ── Intersection observer — reveal animations
+// ── Intersection observer: reveal animations
 const allReveal = document.querySelectorAll('.reveal, .reveal-up, .reveal-left, .reveal-right');
 const revealObs = new IntersectionObserver((entries) => {
   entries.forEach(e => {
