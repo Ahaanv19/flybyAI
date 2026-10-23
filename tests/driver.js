@@ -84,6 +84,19 @@
     const ctas = $$('[data-tally-open]');
     check('waitlist buttons are visible', ctas.length > 0 && ctas.every(shown), `${ctas.filter(shown).length}/${ctas.length} visible`);
 
+    // Tally itself is blocked during tests, so stand in for it to exercise the blur.
+    const root = document.documentElement;
+    const hadTally = 'Tally' in window;
+    if (!hadTally) window.Tally = {};
+    ctas[0].click();
+    check('waitlist click blurs the page', root.classList.contains('waitlist-open'));
+    window.flybyWaitlistOpened();
+    window.flybyWaitlistClosed();
+    check('closing the popup clears the blur', !root.classList.contains('waitlist-open') && !root.classList.contains('waitlist-ready'));
+    ctas[0].click(); await wait(1700);
+    check('blur clears if the popup never appears', !root.classList.contains('waitlist-open'));
+    if (!hadTally) delete window.Tally;
+
     jump(0); await wait(100);
     // body has overflow-x:hidden, which would mask overflow; lift it to measure.
     document.body.style.overflowX = 'visible';

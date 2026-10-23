@@ -426,7 +426,7 @@ section{position:relative}
 .ai-callout::before{content:'';position:absolute;inset:0;z-index:-1;background:radial-gradient(45% 55% at 82% 30%,rgba(53,112,227,.32) 0%,transparent 70%),radial-gradient(40% 50% at 0% 100%,rgba(124,155,227,.16) 0%,transparent 70%)}
 .ai-callout::after{content:'';position:absolute;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:72px 72px;-webkit-mask-image:radial-gradient(70% 70% at 50% 40%,#000,transparent 80%);mask-image:radial-gradient(70% 70% at 50% 40%,#000,transparent 80%)}
 .ai-inner{display:grid;grid-template-columns:1.08fr 1fr;gap:clamp(3rem,6vw,5.5rem);align-items:center}
-.ai-text .h-section{color:#fff;font-size:clamp(2.1rem,3.6vw,2.9rem)}
+.ai-text .h-section{color:#fff;font-size:clamp(2.5rem,4.6vw,3.6rem)}
 .ai-bullets{display:flex;flex-direction:column;gap:1.5rem;margin-top:2.5rem}
 .ai-bullet{display:flex;align-items:flex-start;gap:1rem}
 .ai-bullet-icon{width:38px;height:38px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border-radius:11px;background:linear-gradient(180deg,rgba(255,255,255,.09),rgba(255,255,255,.03));box-shadow:inset 0 0 0 1px rgba(255,255,255,.09),inset 0 1px 0 rgba(255,255,255,.08)}
@@ -476,12 +476,52 @@ section{position:relative}
 .footer-brand .logo-mark img{width:26px;height:26px;object-fit:contain;mix-blend-mode:multiply}
 .footer-brand .logo-mark span{font-size:1.1rem;font-weight:600;letter-spacing:-.035em;color:var(--ink)}
 .footer-brand p{max-width:310px;font-size:.92rem;line-height:1.6;color:var(--ink-3)}
-.footer-cols{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem}
+.footer-cols{display:grid;grid-template-columns:repeat(2,minmax(0,200px));justify-content:end;gap:2rem 3rem}
 .footer-col h4{margin-bottom:1.1rem;font-family:var(--font-mono);font-size:.7rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
 .footer-col a{display:block;width:fit-content;margin-bottom:.7rem;font-size:.92rem;color:var(--ink-3);transition:color .18s}
 .footer-col a:hover{color:var(--ink)}
 .footer-bottom{display:flex;align-items:center;justify-content:space-between;padding:1.5rem 0;border-top:1px solid var(--line-soft);font-size:.84rem;color:var(--ink-4)}
 .footer-wordmark{font-size:clamp(7rem,26vw,22rem);font-weight:600;line-height:.74;letter-spacing:-.075em;text-align:center;margin-bottom:-.17em;background:linear-gradient(180deg,#E6EBF3 0%,rgba(230,235,243,0) 85%);-webkit-background-clip:text;background-clip:text;color:transparent;user-select:none;pointer-events:none}
+
+.fm-approval{display:flex;align-items:center;gap:.7rem;margin-top:12px;padding:.55rem .55rem .55rem .8rem;border-radius:10px;background:var(--amber-bg);font-size:.72rem;line-height:1.4;color:var(--amber)}
+.fm-approval span:first-child{flex:1}
+.fm-approve{flex-shrink:0;padding:5px 12px;border-radius:999px;background:var(--ink);color:#fff;font-size:.7rem;font-weight:550}
+
+/* step 1: calendar to trip overview */
+.how-note{display:flex;gap:.85rem;align-items:flex-start;margin-top:1.5rem;padding:1rem 1.1rem;border-radius:14px;background:var(--bg-soft);border:1px dashed #D3DBE7}
+.how-note-icon{width:30px;height:30px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border-radius:9px;background:#fff;color:var(--blue);box-shadow:inset 0 0 0 1px var(--line),var(--shadow-xs)}
+.how-note-icon svg{width:15px;height:15px}
+.how-step-text .how-note p{font-size:.92rem;line-height:1.55;color:var(--ink-3)}
+.how-note strong{font-weight:600;color:var(--ink)}
+.cal-event{display:flex;align-items:center;gap:.8rem;padding:.7rem .8rem;border-radius:12px;background:var(--blue-50);box-shadow:inset 0 0 0 1px rgba(53,112,227,.14)}
+.cal-date{width:40px;flex-shrink:0;overflow:hidden;border-radius:9px;background:#fff;text-align:center;box-shadow:inset 0 0 0 1px var(--line),var(--shadow-xs)}
+.cal-date span{display:block;padding:2px 0;background:var(--blue);color:#fff;font-family:var(--font-mono);font-size:.55rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase}
+.cal-date strong{display:block;padding:2px 0 4px;font-size:1rem;font-weight:600;letter-spacing:-.02em;color:var(--ink)}
+.cal-info{flex:1;min-width:0}
+.cal-title{font-size:.8rem;font-weight:600;color:var(--ink)}
+.cal-sub{font-size:.7rem;color:var(--ink-3)}
+.plan-flow{display:flex;align-items:center;gap:.5rem;padding:10px 4px;font-family:var(--font-mono);font-size:.62rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-4)}
+.plan-flow svg{width:13px;height:13px;color:var(--blue)}
+.plan{border-radius:12px;border:1px solid var(--line);overflow:hidden}
+.plan-row{display:flex;align-items:center;gap:.75rem;padding:.7rem .85rem;border-bottom:1px solid var(--line-soft)}
+.plan-text{flex:1;min-width:0}
+.plan-name{font-size:.78rem;font-weight:600;color:var(--ink)}
+.plan-sub{font-size:.68rem;color:var(--ink-4)}
+.plan-price{font-size:.8rem;font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}
+.plan-total{display:flex;justify-content:space-between;align-items:baseline;padding:.7rem .85rem;background:var(--bg-soft);font-size:.74rem;color:var(--ink-3)}
+.plan-total strong{font-size:1rem;font-weight:600;letter-spacing:-.02em;color:var(--ink);font-variant-numeric:tabular-nums}
+.plan-actions{display:flex;gap:6px;margin-top:14px}
+.plan-actions .sm-btn{padding:6px 12px;font-size:.72rem}
+
+/* ═══════════════════════ WAITLIST POPUP (Tally) ═══════════════════════ */
+/* The scrim sits just under Tally's overlay; the html classes are toggled by the waitlist script. */
+.waitlist-scrim{position:fixed;inset:0;z-index:1000000000;pointer-events:none;background-color:rgba(6,11,23,0);-webkit-backdrop-filter:blur(0px) saturate(100%);backdrop-filter:blur(0px) saturate(100%);transition:background-color .5s var(--ease),-webkit-backdrop-filter .5s var(--ease),backdrop-filter .5s var(--ease)}
+.waitlist-open .waitlist-scrim{background-color:rgba(6,11,23,.4);-webkit-backdrop-filter:blur(14px) saturate(140%);backdrop-filter:blur(14px) saturate(140%)}
+.tally-overlay{background-color:transparent!important}
+.tally-overlay .tally-popup{transform:translateY(20px) scale(.97);transition:opacity .45s var(--ease),transform .65s var(--ease);box-shadow:0 0 0 1px rgba(10,18,34,.06),0 50px 100px -24px rgba(0,0,0,.55)!important}
+.waitlist-ready .tally-overlay .tally-popup{transform:none}
+.tally-popup,.tally-popup>div,.tally-popup iframe{border-radius:16px!important}
+.tally-loading-indicator{background-color:rgba(255,255,255,.92)!important;color:var(--ink-3)!important;box-shadow:var(--shadow-lg)}
 
 /* ═══════════════════════ REVEAL ANIMATIONS ═══════════════════ */
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
@@ -508,6 +548,7 @@ section{position:relative}
   .stat-cell+.stat-cell{border-left:none;border-top:1px solid var(--line)}
   .stat-k{margin-bottom:1.5rem}
   .footer-top{grid-template-columns:1fr;gap:3rem}
+  .footer-cols{justify-content:start}
   /* single column: rise in instead of sliding sideways, so nothing pokes past the screen edge */
   .reveal-left,.reveal-right{transform:translateY(24px)}
   .reveal-left.visible,.reveal-right.visible{transform:none}
@@ -558,7 +599,7 @@ section{position:relative}
 <!-- ══════════════════════════════ NAVBAR ══════════════════════════════ -->
 <nav class="nav" id="navbar">
   <div class="nav-inner">
-    <a href="#" class="nav-logo">
+    <a href="#hero" class="nav-logo">
       <img src="flybylogo.png" alt="Flyby AI logo" width="28" height="28"/>
       <span>flyby <span class="nav-logo-ai">AI</span></span>
     </a>
@@ -598,7 +639,7 @@ section{position:relative}
     <h1 class="h-hero reveal d1">Business Travel,<br/><span class="serif accent">Built for You.</span></h1>
     <p class="hero-sub reveal d2">Flyby plans, books, and manages your corporate trips, and handles expenses automatically.</p>
     <div class="hero-ctas reveal d3">
-      <button type="button" class="btn btn-blue btn-lg" data-tally-open="zxdvlE" data-tally-layout="modal" data-tally-width="540" data-tally-overlay="1" data-tally-emoji-text="👋" data-tally-emoji-animation="wave">Join the Waitlist<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      <button type="button" class="btn btn-blue btn-lg" data-tally-open="zxdvlE" data-tally-layout="modal" data-tally-width="540" data-tally-overlay="1" data-tally-emoji-text="👋" data-tally-emoji-animation="wave" data-tally-on-open="flybyWaitlistOpened" data-tally-on-close="flybyWaitlistClosed">Join the Waitlist<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
       <a href="#how" class="btn btn-outline btn-lg">See it in action</a>
     </div>
   </div>
@@ -640,7 +681,7 @@ section{position:relative}
                 <div class="c-main">
                   <div class="mockup-search"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>Search trips, people, expenses…<kbd>⌘K</kbd></div>
                   <div class="mockup-cards-row">
-                    <div class="m-stat-card"><div class="m-stat-label">Monthly spend</div><div class="m-stat-val">$48.2k</div><div class="m-stat-sub"><span class="m-stat-badge badge-green">↓ 12%</span> vs last month</div></div>
+                    <div class="m-stat-card"><div class="m-stat-label">Monthly spend</div><div class="m-stat-val">$13k</div><div class="m-stat-sub"><span class="m-stat-badge badge-green">↓ 12%</span> vs last month</div></div>
                     <div class="m-stat-card"><div class="m-stat-label">Active trips</div><div class="m-stat-val">7</div><div class="m-stat-sub"><span class="m-stat-badge badge-blue">4 countries</span></div></div>
                     <div class="m-stat-card"><div class="m-stat-label">Pending expenses</div><div class="m-stat-val">0</div><div class="m-stat-sub"><span class="m-stat-badge badge-green">All reconciled</span></div></div>
                   </div>
@@ -860,7 +901,7 @@ section{position:relative}
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>
           </div>
           <h3 class="h-card">Trip Booking</h3>
-          <p>Flyby automatically books flights and hotels that stay within company policy. Dates shift? Flyby rebooks everything on its own, with no action needed from you.</p>
+          <p>Flyby automatically books flights and hotels that stay within company policy. Dates shift? Flyby rebooks everything on its own and sends you a final approval, so you never lose control.</p>
         </div>
         <div class="feat-visual">
           <div class="feat-mockup">
@@ -884,6 +925,7 @@ section{position:relative}
               <div class="feat-mock-val">$48</div>
             </div>
             <div class="fm-foot"><span>Trip total</span><span>$1,248</span></div>
+            <div class="fm-approval"><span>Meeting moved to Nov 14. Flyby rebooked, approve the new plan?</span><span class="fm-approve">Approve</span></div>
           </div>
         </div>
       </div>
@@ -895,7 +937,7 @@ section{position:relative}
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
           </div>
           <h3 class="h-card">Expense Tracking</h3>
-          <p>Zero expense reports. Flyby captures every receipt, categorizes spending, and reconciles accounts automatically after each trip.</p>
+          <p>Zero expense reports. Flyby tracks spending on your company or personal card, categorizes it, and reconciles accounts automatically after each trip.</p>
         </div>
         <div class="feat-visual">
           <div class="feat-mockup">
@@ -906,17 +948,17 @@ section{position:relative}
             <div class="feat-mock-row">
               <div class="feat-mock-text fm-label">Flights</div>
               <div class="feat-mock-bar-wrap"><div class="feat-mock-bar" style="width:78%"></div></div>
-              <div class="feat-mock-val">$34.8k</div>
+              <div class="feat-mock-val">$6.8k</div>
             </div>
             <div class="feat-mock-row">
               <div class="feat-mock-text fm-label">Hotels</div>
               <div class="feat-mock-bar-wrap"><div class="feat-mock-bar" style="width:52%"></div></div>
-              <div class="feat-mock-val">$23.1k</div>
+              <div class="feat-mock-val">$4.5k</div>
             </div>
             <div class="feat-mock-row">
               <div class="feat-mock-text fm-label">Meals</div>
-              <div class="feat-mock-bar-wrap"><div class="feat-mock-bar" style="width:24%"></div></div>
-              <div class="feat-mock-val">$8.4k</div>
+              <div class="feat-mock-bar-wrap"><div class="feat-mock-bar" style="width:20%"></div></div>
+              <div class="feat-mock-val">$1.7k</div>
             </div>
           </div>
         </div>
@@ -988,8 +1030,8 @@ section{position:relative}
     <div class="stats-grid">
       <div class="stat-cell reveal">
         <div class="stat-k">Booking</div>
-        <div class="stat-figure"><span class="stat-num" data-count="1">0</span></div>
-        <div class="stat-desc">message to book a complete trip</div>
+        <div class="stat-figure"><span class="stat-num" data-count="0">0</span></div>
+        <div class="stat-desc">messages needed to book a business trip<span class="stat-note">Just your approval</span></div>
       </div>
       <div class="stat-cell reveal d1">
         <div class="stat-k">Expenses</div>
@@ -1094,54 +1136,58 @@ section{position:relative}
       <div class="how-step">
         <div class="how-step-text reveal-left">
           <div class="step-num"><span class="step-idx">01</span>Step one</div>
-          <h3>Book with one message.</h3>
-          <p>Tell Flyby where you're going and when. It searches flights, hotels, and transfers, filtered by your company policy, and presents the best options instantly.</p>
+          <h3>Connect your calendar. Flyby does the rest.</h3>
+          <p>Link Flyby to your company calendar once. When a trip comes up, Flyby books flights and hotels within your travel policy and sends you an overview of the whole trip, so you never lose control.</p>
           <div class="how-bullets">
             <div class="how-bullet">
               <div class="how-bullet-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-              <span>Natural language input, with no forms to fill</span>
+              <span>Plans trips straight from your company calendar</span>
             </div>
             <div class="how-bullet">
               <div class="how-bullet-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-              <span>Policy-compliant options only</span>
+              <span>Books flights and hotels within your travel policy</span>
             </div>
             <div class="how-bullet">
               <div class="how-bullet-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-              <span>One-click booking for the whole itinerary</span>
+              <span>Sends you a full trip overview, so you stay in control</span>
             </div>
-            <div class="how-bullet">
-              <div class="how-bullet-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-              <span>Syncs with your calendar to book travel</span>
-            </div>
-            <div class="how-bullet">
-              <div class="how-bullet-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-              <span>Automatically books everything for you</span>
-            </div>
+          </div>
+          <div class="how-note">
+            <div class="how-note-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+            <p><strong>Last-minute trip?</strong> If it isn't on your calendar, just send Flyby a quick message and it takes it from there.</p>
           </div>
         </div>
         <div class="how-visual reveal-right">
           <div class="how-mockup">
             <div class="how-mockup-bar">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-              Flyby AI · Trip Planner
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+              Trip overview · Sent to you
             </div>
-            <div class="chat-bubbles">
-              <div class="chat-row right">
-                <div class="chat-av" style="background:#3570E3">ME</div>
-                <div class="chat-bubble user">Book flights and hotel for NYC to London, <span style="white-space:nowrap">Nov 12–15</span> for 2 people, under $3k total</div>
+            <div class="cal-event">
+              <div class="cal-date"><span>Nov</span><strong>12</strong></div>
+              <div class="cal-info">
+                <div class="cal-title">Client kickoff · London office</div>
+                <div class="cal-sub">Nov 12–15 · From your work calendar</div>
               </div>
-              <div class="chat-row">
-                <div class="chat-av bot-av"><img src="flybylogo.png" alt="" style="width:16px;height:16px;object-fit:contain"/></div>
-                <div style="flex:1;min-width:0">
-                  <div class="chat-bubble ai">Found the best options within your policy. Here's what I recommend:</div>
-                  <div class="chat-result">
-                    <div class="chat-result-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>NYC → London, Nov 12</div>
-                    <div class="chat-result-row"><span>United 927 · 7h 10m</span><span>$680/pp</span></div>
-                    <div class="chat-result-row"><span>Marriott Canary Wharf · 3 nights</span><span>$189/night</span></div>
-                    <div class="chat-result-row"><span>Total for 2 travelers</span><span>$2,927 ✓</span></div>
-                  </div>
-                </div>
+              <span class="trip-chip chip-active">Trip found</span>
+            </div>
+            <div class="plan-flow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg>Booked by Flyby within policy</div>
+            <div class="plan">
+              <div class="plan-row">
+                <div class="fm-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2L16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg></div>
+                <div class="plan-text"><div class="plan-name">United 927 · JFK → LHR</div><div class="plan-sub">Nov 12 · Non-stop · 7h 10m</div></div>
+                <div class="plan-price">$680</div>
               </div>
+              <div class="plan-row">
+                <div class="fm-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20v-8a2 2 0 012-2h16a2 2 0 012 2v8M4 10V6a2 2 0 012-2h12a2 2 0 012 2v4M12 4v6M2 18h20"/></svg></div>
+                <div class="plan-text"><div class="plan-name">Marriott Canary Wharf</div><div class="plan-sub">3 nights · 10 min from the office</div></div>
+                <div class="plan-price">$567</div>
+              </div>
+              <div class="plan-total"><span>Trip total</span><strong>$1,247</strong></div>
+            </div>
+            <div class="plan-actions">
+              <span class="sm-btn primary">Looks good</span>
+              <span class="sm-btn">Make changes</span>
             </div>
           </div>
         </div>
@@ -1212,11 +1258,11 @@ section{position:relative}
         <div class="how-step-text reveal-left">
           <div class="step-num"><span class="step-idx">03</span>Step three</div>
           <h3>Expense report sent automatically.</h3>
-          <p>When the trip ends, Flyby compiles every receipt, categorizes every spend, and sends a complete expense report, with no action required from your travelers.</p>
+          <p>Connect a company or personal card and Flyby tracks every expense as it happens on the trip. By the time you're home, your expense report is done. No more collecting receipts or snapping photos of hotel invoices.</p>
           <div class="how-bullets">
             <div class="how-bullet">
               <div class="how-bullet-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-              <span>Auto-captured receipts and invoices</span>
+              <span>Tracks spending on your company or personal card</span>
             </div>
             <div class="how-bullet">
               <div class="how-bullet-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
@@ -1232,7 +1278,7 @@ section{position:relative}
           <div class="how-mockup">
             <div class="how-mockup-bar">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-              Expense Report · Auto-generated
+              Expense report · Visa •• 4821
             </div>
             <div class="expense-rows">
               <div class="exp-row">
@@ -1273,12 +1319,12 @@ section{position:relative}
 </section>
 
 <!-- ══════════════════════════════ AI CALLOUT ══════════════════════════════ -->
-<section class="ai-callout">
+<section class="ai-callout" id="ai">
   <div class="container">
     <div class="ai-inner">
       <div class="ai-text reveal-left">
         <div class="eyebrow eyebrow-dark">AI-powered</div>
-        <h2 class="h-section">Your AI travel assistant<br/><span class="serif accent-light">never sleeps.</span></h2>
+        <h2 class="h-section">Flyby <span class="serif accent-light">never sleeps.</span></h2>
         <div class="ai-bullets">
           <div class="ai-bullet">
             <div class="ai-bullet-icon">
@@ -1338,7 +1384,7 @@ section{position:relative}
           </div>
           <div class="ai-insight-text">
             <strong>Spend prediction</strong>
-            <span>Q4 travel spend projected at $184k, 18% above Q3. Book earlier to save ~$22k.</span>
+            <span>Q4 travel spend projected at $41k, 18% above Q3. Book earlier to save ~$5k.</span>
           </div>
         </div>
         <div class="ai-score">
@@ -1361,10 +1407,10 @@ section{position:relative}
       <div class="waitlist-content">
         <div class="waitlist-logo reveal"><img src="flybylogo.png" alt=""/></div>
         <div class="eyebrow reveal">Early access · Limited spots</div>
-        <h2 class="reveal d1">Fly smarter,<br/><span class="serif accent">starting now.</span></h2>
+        <h2 class="reveal d1">Travel smarter,<br/><span class="serif accent">starting now.</span></h2>
         <p class="waitlist-sub reveal d2">We're early. Your feedback shapes what we build next. Join the waitlist and be first to fly.</p>
         <div class="waitlist-form reveal d3">
-          <button type="button" class="btn btn-blue btn-lg" data-tally-open="zxdvlE" data-tally-layout="modal" data-tally-width="540" data-tally-overlay="1" data-tally-emoji-text="👋" data-tally-emoji-animation="wave">Join Waitlist<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          <button type="button" class="btn btn-blue btn-lg" data-tally-open="zxdvlE" data-tally-layout="modal" data-tally-width="540" data-tally-overlay="1" data-tally-emoji-text="👋" data-tally-emoji-animation="wave" data-tally-on-open="flybyWaitlistOpened" data-tally-on-close="flybyWaitlistClosed">Join Waitlist<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
         </div>
       </div>
     </div>
@@ -1385,32 +1431,16 @@ section{position:relative}
       <div class="footer-cols">
         <div class="footer-col">
           <h4>Product</h4>
-          <a href="#">Trip Booking</a>
-          <a href="#">Expense Tracking</a>
-          <a href="#">AI Insights</a>
-          <a href="#">Integrations</a>
-          <a href="#">Changelog</a>
+          <a href="#features">Trip Booking</a>
+          <a href="#features">Expense Tracking</a>
+          <a href="#ai">AI Insights</a>
+          <a href="#features">Slack &amp; Teams</a>
         </div>
         <div class="footer-col">
-          <h4>Company</h4>
-          <a href="#">About</a>
-          <a href="#">Blog</a>
-          <a href="#">Careers</a>
-          <a href="#">Press</a>
-        </div>
-        <div class="footer-col">
-          <h4>Resources</h4>
-          <a href="#">Documentation</a>
-          <a href="#">API</a>
-          <a href="#">Status</a>
-          <a href="#">Support</a>
-        </div>
-        <div class="footer-col">
-          <h4>Legal</h4>
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms of Service</a>
-          <a href="#">Security</a>
-          <a href="#">Cookies</a>
+          <h4>Explore</h4>
+          <a href="#how">How it works</a>
+          <a href="#teams">Use cases</a>
+          <a href="#waitlist" data-tally-open="zxdvlE" data-tally-layout="modal" data-tally-width="540" data-tally-overlay="1" data-tally-emoji-text="👋" data-tally-emoji-animation="wave" data-tally-on-open="flybyWaitlistOpened" data-tally-on-close="flybyWaitlistClosed">Join the waitlist</a>
         </div>
       </div>
     </div>
@@ -1420,6 +1450,8 @@ section{position:relative}
   </div>
   <div class="footer-wordmark" aria-hidden="true">flyby</div>
 </footer>
+
+<div class="waitlist-scrim" aria-hidden="true"></div>
 
 <script>
 /* ════════════════════════════════════ JS ════════════════════════════════════ */
@@ -1642,6 +1674,21 @@ window.addEventListener('scroll', () => {
     a.style.color = a.getAttribute('href') === `#${current}` ? 'var(--blue)' : '';
   });
 }, { passive: true });
+// ── Waitlist popup: blur the page behind Tally's form and ease it in and out.
+// Tally calls these by name through data-tally-on-open / data-tally-on-close.
+(function() {
+  const root = document.documentElement;
+  window.flybyWaitlistOpened = () => root.classList.add('waitlist-ready');
+  window.flybyWaitlistClosed = () => root.classList.remove('waitlist-open', 'waitlist-ready');
+  document.addEventListener('click', e => {
+    if (!window.Tally || !e.target.closest('[data-tally-open]')) return;
+    root.classList.add('waitlist-open');
+    // If the popup never shows up, don't leave the page blurred.
+    setTimeout(() => {
+      if (!document.querySelector('.tally-overlay')) window.flybyWaitlistClosed();
+    }, 1500);
+  });
+})();
 </script>
 <!-- Tally embed widget -->
 <script async src="https://tally.so/widgets/embed.js"></script>

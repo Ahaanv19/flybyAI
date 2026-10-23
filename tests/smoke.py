@@ -71,6 +71,9 @@ def static_checks(page):
     missing = [i for i in REQUIRED_IDS if i not in ids]
     check('elements the script relies on exist', not missing, 'missing #' + ', #'.join(missing))
 
+    placeholders = sum(1 for t, a in tags if t == 'a' and (a.get('href') or '').strip() in ('', '#'))
+    check('no placeholder links (href="#")', placeholders == 0, f'{placeholders} link(s) just jump to the top')
+
     anchors = sorted({a['href'][1:] for _, a in tags if (a.get('href') or '').startswith('#') and len(a['href']) > 1})
     broken = [a for a in anchors if a not in ids]
     check('in-page links point at real sections', not broken, 'no target for #' + ', #'.join(broken))
@@ -95,6 +98,8 @@ def static_checks(page):
 
     tally = [a for _, a in tags if a.get('data-tally-open')]
     check('waitlist buttons are wired to Tally', tally, 'no data-tally-open elements')
+    unhooked = sum(1 for a in tally if not a.get('data-tally-on-close'))
+    check('waitlist buttons clear the background blur on close', tally and not unhooked, f'{unhooked} without data-tally-on-close')
     check('Tally embed script is included', 'tally.so/widgets/embed.js' in src)
     return results
 
